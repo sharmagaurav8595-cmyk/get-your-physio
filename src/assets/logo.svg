@@ -1,0 +1,10 @@
+<svg width="192" height="192" viewBox="0 0 192 192" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">GetMyPhysio.in logo</title>
+  <desc id="desc">A healthcare shield with a physiotherapy movement mark.</desc>
+  <rect width="192" height="192" rx="44" fill="#EAF8F7"/>
+  <path d="M96 22L151 43V88C151 123 128 154 96 169C64 154 41 123 41 88V43L96 22Z" fill="#0F6FB8"/>
+  <path d="M96 35L138 51V88C138 115 121 140 96 153C71 140 54 115 54 88V51L96 35Z" fill="#FFFFFF"/>
+  <circle cx="96" cy="65" r="13" fill="#0F9F8F"/>
+  <path d="M77 89C81 80 88 76 96 76C104 76 111 80 115 89L126 113C128 118 126 124 121 126C116 128 111 126 109 121L102 105V134C102 140 98 144 92 144C86 144 82 140 82 134V105L75 121C73 126 68 128 63 126C58 124 56 118 58 113L69 89H77Z" fill="#0F6FB8"/>
+  <path d="M89 91H103V105H117V119H103V133H89V119H75V105H89V91Z" fill="#EAF8F7"/>
+</svg>

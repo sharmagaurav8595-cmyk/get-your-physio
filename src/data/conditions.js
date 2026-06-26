@@ -1,0 +1,18 @@
+export const conditions = [
+  "Lower back pain",
+  "Neck stiffness",
+  "Frozen shoulder",
+  "Knee pain",
+  "Arthritis pain",
+  "Sciatica",
+  "Slip disc symptoms",
+  "Post-fracture stiffness",
+  "Stroke recovery",
+  "Parkinson's mobility",
+  "Balance problems",
+  "Sports sprains",
+  "Posture issues",
+  "Post-surgery weakness",
+  "Heel pain",
+  "Tennis elbow",
+];

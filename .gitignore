@@ -1,0 +1,7 @@
+//write the inside content of the .gitignore file here
+# Ignore node_modules directory
+node_modules/
+# Ignore log files
+*.log
+# Ignore environment variable files
+.env
