@@ -21,7 +21,7 @@ export default function Hero() {
               Expert Physiotherapy care at your Doorstep
             </Typography>
             <Typography variant="h5" color="text.secondary" className="hero-subtitle">
-              GetYourPhysio.in provides personalised physiotherapy care in the comfort of your home. We help you in reduce pain, improve mobility and recover faster.
+              Get personalised physiotherapy care in the comfort of your home.
             </Typography>
             <Stack direction={{ xs: "column", sm: "row" }} spacing={1.5} className="hero-actions">
               <Button
@@ -56,8 +56,8 @@ export default function Hero() {
           <Box className="hero-media">
             <img src={images.hero} alt="Physiotherapist supporting a patient during treatment" />
             <Box className="hero-stat">
-              <Typography variant="h4">4-step</Typography>
-              <Typography>care plan from assessment to recovery</Typography>
+              <Typography variant="h4">Personalized Care Plan</Typography>
+              <Typography>From Expert Assessment to Lasting Recovery</Typography>
             </Box>
           </Box>
         </Box>

@@ -3,9 +3,9 @@ import logo from "../assets/logo.svg";
 import { contactDetails } from "../data/contact.js";
 
 const footerLinks = [
+  { label: "How It Works", href: "#how-it-works" },
   { label: "Services", href: "#services" },
   { label: "About", href: "#about" },
-  { label: "How It Works", href: "#how-it-works" },
   { label: "FAQ", href: "#faq" },
   { label: "Contact", href: "#contact" },
 ];
