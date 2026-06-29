@@ -18,10 +18,10 @@ export default function App() {
       <Header />
       <main>
         <Hero />
+        <HowItWorks />
         <ServicesSection />
         <AboutSection />
         <WhyChooseUs />
-        <HowItWorks />
         <ConditionsSection />
         <TestimonialsSection />
         <FaqSection />

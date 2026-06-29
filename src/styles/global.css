@@ -18,6 +18,11 @@ body {
   overflow-x: hidden;
 }
 
+#root {
+  width: 100%;
+  overflow-x: clip;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -25,6 +30,7 @@ a {
 
 img {
   display: block;
+  height: auto;
   max-width: 100%;
 }
 
@@ -37,6 +43,7 @@ img {
 .header-toolbar {
   min-height: 78px;
   gap: 24px;
+  width: 100%;
 }
 
 .brand-link {
@@ -66,6 +73,7 @@ img {
 .desktop-nav {
   flex: 1;
   justify-content: center;
+  min-width: 0;
 }
 
 .desktop-actions {
@@ -611,6 +619,20 @@ img {
 }
 
 @media (max-width: 1180px) {
+  .header-toolbar {
+    gap: 14px;
+  }
+
+  .desktop-nav .MuiButton-root {
+    min-width: auto;
+    padding-inline: 8px;
+    font-size: 0.84rem;
+  }
+
+  .desktop-actions .MuiButton-root {
+    padding-inline: 12px;
+  }
+
   .service-grid,
   .reason-grid,
   .steps-grid {
@@ -618,11 +640,8 @@ img {
   }
 }
 
-@media (max-width: 900px) {
-  .header-toolbar {
-    min-height: 70px;
-  }
-
+@media (max-width: 1080px) {
+  .desktop-nav,
   .desktop-actions {
     display: none !important;
   }
@@ -633,11 +652,60 @@ img {
   }
 
   .mobile-drawer {
-    display: block;
+    display: block !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .header-toolbar {
+    min-height: 70px;
+    gap: 12px;
+  }
+
+  .desktop-nav,
+  .desktop-actions {
+    display: none !important;
+  }
+
+  .brand-link {
+    min-width: 0;
+  }
+
+  .mobile-menu-button {
+    display: inline-flex !important;
+    margin-left: auto !important;
+  }
+
+  .mobile-drawer {
+    display: block !important;
   }
 
   .hero-section {
     padding: 42px 0 44px;
+  }
+
+  .hero-grid,
+  .split-grid,
+  .conditions-layout,
+  .contact-grid {
+    gap: 40px;
+  }
+
+  .hero-title {
+    font-size: clamp(2.6rem, 8vw, 4.2rem) !important;
+  }
+
+  .hero-chip {
+    width: fit-content;
+    max-width: 100%;
+    height: auto !important;
+    min-height: 32px;
+    padding-block: 4px;
+  }
+
+  .hero-chip .MuiChip-label {
+    white-space: normal;
+    line-height: 1.35;
   }
 
   .hero-grid,
@@ -664,7 +732,7 @@ img {
   }
 
   .testimonial-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .condition-gallery {
@@ -683,6 +751,19 @@ img {
   .footer-bottom {
     display: grid;
   }
+
+  .appointment-form,
+  .contact-info-item,
+  .service-card,
+  .testimonial-card,
+  .step-item {
+    min-width: 0;
+  }
+
+  .sticky-actions {
+    right: 16px;
+    bottom: 16px;
+  }
 }
 
 @media (max-width: 640px) {
@@ -693,6 +774,12 @@ img {
   .brand-logo {
     width: 42px;
     height: 42px;
+    flex: 0 0 42px;
+  }
+
+  .brand-name {
+    font-size: 1rem !important;
+    overflow-wrap: anywhere;
   }
 
   .brand-tagline {
@@ -700,7 +787,8 @@ img {
   }
 
   .hero-title {
-    font-size: 2.55rem !important;
+    font-size: clamp(2.15rem, 11vw, 2.75rem) !important;
+    line-height: 1.08 !important;
   }
 
   .hero-subtitle {
@@ -711,9 +799,20 @@ img {
     width: 100%;
   }
 
+  .hero-highlights {
+    gap: 10px !important;
+  }
+
   .hero-media,
   .hero-media img {
-    min-height: 320px;
+    min-height: 280px;
+  }
+
+  .hero-stat {
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    padding: 14px 16px;
   }
 
   .section-heading {
@@ -723,6 +822,7 @@ img {
   .service-grid,
   .reason-grid,
   .steps-grid,
+  .testimonial-grid,
   .form-grid {
     grid-template-columns: 1fr;
   }
@@ -740,7 +840,11 @@ img {
   .service-card .MuiCardContent-root,
   .testimonial-card .MuiCardContent-root,
   .step-item {
-    padding: 22px;
+    padding: 20px;
+  }
+
+  .step-item {
+    min-height: auto;
   }
 
   .service-dialog-title {
@@ -758,7 +862,63 @@ img {
   }
 
   .section-block {
-    padding: 56px 0;
+    padding: 52px 0;
+  }
+
+  .section-title {
+    font-size: clamp(1.85rem, 9vw, 2.4rem) !important;
+  }
+
+  .section-description {
+    font-size: 1rem !important;
+    line-height: 1.65 !important;
+  }
+
+  .faq-list .MuiAccordionSummary-root {
+    min-height: 60px;
+    padding-inline: 16px;
+  }
+
+  .faq-list .MuiAccordionSummary-content h3 {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  .faq-list .MuiAccordionDetails-root {
+    padding: 0 16px 18px;
+  }
+
+  .contact-info-item {
+    padding: 15px;
+  }
+
+  .contact-info-item > div,
+  .footer-grid > *,
+  .footer-bottom > * {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .appointment-form {
+    padding: 20px;
+  }
+
+  .home-visit-check {
+    min-height: 52px;
+    height: auto;
+    padding-block: 6px;
+  }
+
+  .site-footer {
+    padding: 44px 0 24px;
+  }
+
+  .footer-grid {
+    gap: 26px;
+  }
+
+  .footer-bottom {
+    margin-top: 32px;
   }
 
   .condition-chip {
@@ -771,5 +931,84 @@ img {
     right: 12px;
     bottom: 12px;
     width: auto;
+  }
+}
+
+@media (max-width: 420px) {
+  .MuiContainer-root {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  .header-toolbar {
+    min-height: 64px;
+  }
+
+  .brand-logo {
+    width: 38px;
+    height: 38px;
+    flex-basis: 38px;
+  }
+
+  .mobile-menu-button {
+    padding: 8px !important;
+  }
+
+  .mobile-drawer {
+    width: min(90vw, 340px);
+    padding: 16px;
+  }
+
+  .hero-section {
+    padding-top: 34px;
+  }
+
+  .hero-grid,
+  .split-grid,
+  .conditions-layout,
+  .contact-grid {
+    gap: 32px;
+  }
+
+  .hero-chip {
+    font-size: 0.76rem !important;
+  }
+
+  .hero-media,
+  .hero-media img {
+    min-height: 250px;
+  }
+
+  .about-gallery {
+    gap: 12px;
+  }
+
+  .condition-list {
+    gap: 8px;
+  }
+
+  .service-dialog-title {
+    gap: 8px;
+  }
+
+  .service-dialog-title .MuiStack-root {
+    min-width: 0;
+  }
+
+  .service-dialog-title .MuiTypography-root {
+    font-size: 1.12rem;
+    overflow-wrap: anywhere;
+  }
+
+  .sticky-actions {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 8px;
+  }
+
+  .sticky-actions .MuiButton-root {
+    min-width: 0;
+    padding-inline: 8px;
+    font-size: 0.82rem;
   }
 }

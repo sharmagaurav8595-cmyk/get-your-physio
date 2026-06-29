@@ -15,13 +15,13 @@ import {
 } from "@mui/material";
 import { CalendarCheck, Menu, Phone, X } from "lucide-react";
 import logo from "../assets/logo.svg";
-import logo2 from "../assets/logo2.png";
+import logo3 from "../assets/logo3.jpg";
 import { contactDetails } from "../data/contact.js";
 
 const navLinks = [
+  { label: "How It Works", href: "#how-it-works" },
   { label: "Services", href: "#services" },
   { label: "About", href: "#about" },
-  { label: "How It Works", href: "#how-it-works" },
   { label: "FAQ", href: "#faq" },
   { label: "Contact", href: "#contact" },
 ];
@@ -36,7 +36,7 @@ export default function Header() {
       <Container maxWidth="xl">
         <Toolbar disableGutters className="header-toolbar">
           <Box component="a" href="#home" className="brand-link" aria-label="GetYourPhysio.in home">
-            <img src={logo2} alt="" className="brand-logo" />
+            <img src={logo3} alt="" className="brand-logo" />
             <Box>
               <Typography variant="h6" className="brand-name">
                 GetYourPhysio.in
@@ -78,6 +78,8 @@ export default function Header() {
             className="mobile-menu-button"
             onClick={() => setOpen(true)}
             aria-label="Open navigation menu"
+            aria-expanded={open}
+            aria-controls="mobile-navigation"
           >
             <Menu />
           </IconButton>
@@ -85,10 +87,10 @@ export default function Header() {
       </Container>
 
       <Drawer anchor="right" open={open} onClose={closeDrawer}>
-        <Box className="mobile-drawer" role="presentation">
+        <Box id="mobile-navigation" className="mobile-drawer" role="navigation" aria-label="Mobile navigation">
           <Stack direction="row" alignItems="center" justifyContent="space-between" mb={2}>
             <Box className="brand-link">
-              <img src={logo2} alt="" className="brand-logo" />
+              <img src={logo3} alt="" className="brand-logo" />
               <Typography variant="h6" className="brand-name">
                 GetYourPhysio.in
               </Typography>
