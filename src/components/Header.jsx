@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import { CalendarCheck, Menu, Phone, X } from "lucide-react";
 import logo from "../assets/logo.svg";
+import logo2 from "../assets/logo2.png";
 import { contactDetails } from "../data/contact.js";
 
 const navLinks = [
@@ -34,13 +35,13 @@ export default function Header() {
     <AppBar position="sticky" color="inherit" elevation={0} className="site-header">
       <Container maxWidth="xl">
         <Toolbar disableGutters className="header-toolbar">
-          <Box component="a" href="#home" className="brand-link" aria-label="GetMyPhysio.in home">
-            <img src={logo} alt="" className="brand-logo" />
+          <Box component="a" href="#home" className="brand-link" aria-label="GetYourPhysio.in home">
+            <img src={logo2} alt="" className="brand-logo" />
             <Box>
               <Typography variant="h6" className="brand-name">
-                GetMyPhysio.in
+                GetYourPhysio.in
               </Typography>
-              <Typography className="brand-tagline">Physiotherapy made simple</Typography>
+              <Typography className="brand-tagline">  Healing at your doorstep</Typography>
             </Box>
           </Box>
 
@@ -87,9 +88,9 @@ export default function Header() {
         <Box className="mobile-drawer" role="presentation">
           <Stack direction="row" alignItems="center" justifyContent="space-between" mb={2}>
             <Box className="brand-link">
-              <img src={logo} alt="" className="brand-logo" />
+              <img src={logo2} alt="" className="brand-logo" />
               <Typography variant="h6" className="brand-name">
-                GetMyPhysio.in
+                GetYourPhysio.in
               </Typography>
             </Box>
             <IconButton onClick={closeDrawer} aria-label="Close navigation menu">

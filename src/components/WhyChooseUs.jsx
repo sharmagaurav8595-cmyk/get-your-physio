@@ -4,25 +4,27 @@ import SectionHeading from "./SectionHeading.jsx";
 
 const reasons = [
   {
-    title: "Qualified Care",
-    description: "Structured assessments and treatment plans led by trained physiotherapy professionals.",
+    title: "Personalized Care",
+    description: "Every treatment plan is tailored to your condition, lifestyle adn recovery goals.",
     icon: BadgeCheck,
   },
   {
-    title: "Patient First",
-    description: "Sessions are paced with comfort, safety, and confidence in mind, especially for seniors.",
+    title: "Flexible Scheduling",
+    description: "Book appointment at a time that suits you, ensuring focused care, continous progress and better outcomes.",
+    icon: BadgeCheck,
+  },  
+  {
+    title: "Patient Education",
+    description: "We help you understand your condition empowering you to recover confidently.",
     icon: HeartPulse,
   },
   {
-    title: "Home Convenience",
-    description: "Book home physiotherapy when clinic travel is painful, tiring, or inconvenient.",
-    icon: Home,
+    title: "Qualified Care",
+    description: "Structured assessments and treatment plans led by trained Physiotherapy professionals.",
+    icon: BadgeCheck,
   },
-  {
-    title: "Recovery Tracking",
-    description: "Progress is reviewed through pain levels, mobility, strength, and daily function.",
-    icon: TimerReset,
-  },
+  
+  
 ];
 
 export default function WhyChooseUs() {
@@ -31,8 +33,8 @@ export default function WhyChooseUs() {
       <Container maxWidth="xl">
         <SectionHeading
           eyebrow="Why Choose Us"
-          title="Professional care that feels easy to trust"
-          description="Everything is designed to make booking, treatment, and recovery feel clear for patients and families."
+          title="Professional care that feels clear, steady, and easy to trust"
+          description="Everything is designed to make appointments, treatment and recovery fast, simple and convenient for you and your family."
         />
         <Box className="reason-grid">
           {reasons.map(({ title, description, icon: Icon }) => (

@@ -13,19 +13,21 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { MapPin, Phone, Send, ShieldCheck } from "lucide-react";
+import { Laptop, MapPin, Phone, Send, ShieldCheck } from "lucide-react";
 import SectionHeading from "./SectionHeading.jsx";
 import { contactDetails } from "../data/contact.js";
 
-const painAreas = [
-  "Back pain",
-  "Neck pain",
-  "Knee pain",
-  "Shoulder pain",
-  "Sports injury",
+const concernOptions = [
+  "Sports injury rehabilitation",
+  "Post exercise recovery",
+  "Knee pain management",
+  "Back pain and sciatica",
+  "Neck and shoulder pain",
   "Post-surgery rehab",
-  "Senior mobility",
-  "Neuro rehab",
+  "Posture correction",
+  "Senior citizen Physiotherapy",
+  "Home Physiotherapy",
+  "Cupping / taping / needling",
   "Other",
 ];
 
@@ -33,7 +35,7 @@ const initialForm = {
   name: "",
   phone: "",
   age: "",
-  painArea: "",
+  concern: "",
   preferredDate: "",
   homeVisit: false,
   message: "",
@@ -55,17 +57,17 @@ export default function ContactSection() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const subject = encodeURIComponent("New appointment request - GetMyPhysio.in");
+    const subject = encodeURIComponent("New appointment request - GetYourPhysio.in");
     const body = encodeURIComponent(
       [
-        "New appointment request from GetMyPhysio.in",
+        "New appointment request from GetYourPhysio.in",
         "",
         `Name: ${form.name}`,
         `Phone: ${form.phone}`,
         `Age: ${form.age}`,
-        `Pain area: ${form.painArea}`,
+        `Issue / Concern: ${form.concern}`,
         `Preferred date: ${form.preferredDate}`,
-        `Home visit required: ${form.homeVisit ? "Yes" : "No"}`,
+        `Home Physiotherapy preferred: ${form.homeVisit ? "Yes" : "No"}`,
         `Message: ${form.message || "No message provided"}`,
       ].join("\n"),
     );
@@ -83,8 +85,8 @@ export default function ContactSection() {
             <SectionHeading
               align="left"
               eyebrow="Contact"
-              title="Book an appointment with GetMyPhysio.in"
-              description="Share your details and our team will call you to confirm the best physiotherapy option for your condition."
+              title="Book a consultation with GetYourPhysio.in"
+              description="Share your details and our team will call you to understand your recovery goal, issue, and best Physiotherapy support option."
             />
             <Stack spacing={2} className="contact-info">
               <Box className="contact-info-item">
@@ -99,9 +101,18 @@ export default function ContactSection() {
               <Box className="contact-info-item">
                 <MapPin size={24} />
                 <Box>
-                  <Typography variant="h6">Clinic and home physiotherapy</Typography>
+                  <Typography variant="h6">Home Physiotherapy support</Typography>
                   <Typography color="text.secondary">
-                    Serving nearby neighborhoods with flexible home visit slots.
+                    Flexible home visit slots for recovery, mobility, posture, and senior care.
+                  </Typography>
+                </Box>
+              </Box>
+              <Box className="contact-info-item">
+                <Laptop size={24} />
+                <Box>
+                  <Typography variant="h6">Online guidance available</Typography>
+                  <Typography color="text.secondary">
+                    Consultation-style support for exercise review, posture correction, and follow-up.
                   </Typography>
                 </Box>
               </Box>
@@ -153,19 +164,20 @@ export default function ContactSection() {
               />
               <TextField
                 select
-                label="Pain area"
-                name="painArea"
-                value={form.painArea}
+                label="Your Issue / Concern"
+                name="concern"
+                value={form.concern}
                 onChange={handleChange}
                 required
               >
-                {painAreas.map((area) => (
+                {concernOptions.map((area) => (
                   <MenuItem key={area} value={area}>
                     {area}
                   </MenuItem>
                 ))}
               </TextField>
               <TextField
+                className="date-field"
                 label="Preferred date"
                 name="preferredDate"
                 type="date"
@@ -185,7 +197,7 @@ export default function ContactSection() {
                     color="secondary"
                   />
                 }
-                label="Home visit required"
+                label="Home Physiotherapy preferred"
               />
             </Box>
             <TextField

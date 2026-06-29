@@ -3,7 +3,7 @@ import { CalendarCheck, CheckCircle2, Phone, ShieldCheck } from "lucide-react";
 import { images } from "../assets/images.js";
 import { contactDetails } from "../data/contact.js";
 
-const highlights = ["Clinic and home visits", "Senior-friendly care", "Personal recovery plans"];
+const highlights = ["Personalized Treatment plan", "Home and online support", "Flexible appointment scheduling"];
 
 export default function Hero() {
   return (
@@ -14,15 +14,14 @@ export default function Hero() {
             <Chip
               color="secondary"
               icon={<ShieldCheck size={18} />}
-              label="Trusted physiotherapy for pain relief and mobility"
+              label="Trusted Home Physiotherapy for Pain relief and faster recovery"
               className="hero-chip"
             />
             <Typography component="h1" variant="h1" className="hero-title">
-              Expert physiotherapy care at your clinic or home.
+              Expert Physiotherapy care at your Doorstep
             </Typography>
             <Typography variant="h5" color="text.secondary" className="hero-subtitle">
-              GetMyPhysio.in helps adults, athletes, and senior citizens recover safely from
-              pain, injury, surgery, posture issues, and mobility challenges.
+              GetYourPhysio.in provides personalised physiotherapy care in the comfort of your home. We help you in reduce pain, improve mobility and recover faster.
             </Typography>
             <Stack direction={{ xs: "column", sm: "row" }} spacing={1.5} className="hero-actions">
               <Button

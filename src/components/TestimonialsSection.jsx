@@ -8,9 +8,9 @@ export default function TestimonialsSection() {
     <Box component="section" className="section-block">
       <Container maxWidth="xl">
         <SectionHeading
-          eyebrow="Testimonials"
-          title="Patients and families value clear, steady care"
-          description="Real recovery feels less stressful when the plan is explained and progress is visible."
+          eyebrow="Patient Testimonials"
+          title="Athletes, patients, and families value clear, steady care"
+          description="Real recovery feels more confident when the plan is explained and the progress is visible."
         />
         <Box className="testimonial-grid">
           {testimonials.map((testimonial) => (

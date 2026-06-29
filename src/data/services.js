@@ -2,60 +2,76 @@ import {
   Activity,
   Armchair,
   Brain,
+  CircleDot,
   Dumbbell,
+  HeartPulse,
   Home,
   PersonStanding,
+  Ribbon,
   ShieldPlus,
   Stethoscope,
+  Syringe,
+  Target,
+  Waves,
 } from "lucide-react";
 
 export const services = [
   {
-    title: "Back Pain Therapy",
+    title: "Pain Management",
     description:
-      "Targeted assessment, manual therapy, strengthening, and movement correction for recurring lower back pain.",
-    icon: Activity,
+      "Uses advanced technique like Cupping, Dry Needling, Kinesio Taping, electrotherapy modalities such as TENS, Ultrasound therapy for better pain management.",
+    bestFor: "Senior citizens, families arranging care at home, and users needing steady mobility support.",
+    icon: Armchair,
+  },{
+    title: "Sports Injury Rehabilitation",
+    description:
+      "Progressive rehab for sprains, strains, ligament injuries, Athlete Performance enhancement and return to sport with confidence.",
+    bestFor: "Athletes, sports injury recovery, school or college players, runners, and gym users.",
+    icon: Target,
   },
   {
-    title: "Neck Pain Therapy",
+    title: "Orthopedic Physiotherapy",
     description:
-      "Gentle mobilization, posture guidance, and exercise plans for stiffness, headaches, and desk-related neck strain.",
+      "Comprehensive rehabilitation for back, Cervical, Shoulder, knee and joint pain including Sciatica and Arthritis management- Helping you move better, recover faster and live pain-free.",
+    bestFor: "Athletes, sports injury recovery, school or college players, runners, and gym users.",
+    icon: Target,
+  },
+  {
+    title: "Geriatric Physiotherapy",
+    description:
+      "Senior citizen physiotherapy for mobility, balance, joint pain, fall prevention, and independent living.",
+    bestFor: "Senior citizens, families arranging care at home, and users needing steady mobility support.",
+    icon: Armchair,
+  },
+   {
+    title: "Personalized Yoga Sessions",
+    description:
+      "Our customized yoga sessions are designed for all age groups to improve mobility, relieve stiffness and strengthen your body and achieve better physical and mental wellness - all under expert guidance.",
+    bestFor: "Working professionals, students, gym enthusiasts, and posture correction users.",
     icon: Stethoscope,
   },
+  
   {
-    title: "Sports Injury Rehab",
+    title: "Post Surgery Rehabilitation",
     description:
-      "Progressive recovery plans for sprains, muscle strains, ligament injuries, and return-to-sport confidence.",
+      "Structured Post Surgery Rehabilitation for conditions such as knee replacement, shoulder surgery, spine surgery, fracture to restore strength, balance and range of motion.",
+    bestFor: "Athletes, gym enthusiasts, and active working professionals returning to safe training.",
     icon: Dumbbell,
   },
   {
-    title: "Post-Surgery Rehab",
-    description:
-      "Structured rehabilitation after orthopedic procedures to restore strength, balance, and range of motion.",
-    icon: ShieldPlus,
-  },
-  {
-    title: "Senior Citizen Physiotherapy",
-    description:
-      "Safe, patient-paced therapy for mobility, balance, joint pain, fall prevention, and independent living.",
-    icon: Armchair,
-  },
-  {
-    title: "Posture Correction",
+    title: "Postural Correction",
     description:
       "Ergonomic screening, mobility work, and strengthening routines for better alignment and long-term comfort.",
+    bestFor: "Working professionals, students, gym enthusiasts, and posture correction users.",
     icon: PersonStanding,
   },
   {
-    title: "Home Physiotherapy",
+    title: "Cardio and Respiratory Care",
     description:
-      "Professional physiotherapy at home for patients who prefer convenient care without travel stress.",
-    icon: Home,
+      "Post cardiac procedural rehablitation including breathing exercises, chest physiotherapy to improve functioning of heart and lungs.",
+       bestFor: "Working professionals, students, gym enthusiasts, and posture correction users.",
+    icon: PersonStanding,
   },
-  {
-    title: "Neuro Rehab",
-    description:
-      "Supportive therapy for stroke, Parkinson's, nerve weakness, balance issues, and functional retraining.",
-    icon: Brain,
-  },
+ 
+  
 ];

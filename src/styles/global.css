@@ -247,6 +247,12 @@ img {
   transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
 }
 
+.service-action {
+  height: 100%;
+  align-items: stretch !important;
+  text-align: left !important;
+}
+
 .service-card:hover,
 .testimonial-card:hover {
   transform: translateY(-4px);
@@ -280,6 +286,46 @@ img {
   margin-bottom: 10px;
 }
 
+.service-dialog {
+  border-radius: 8px !important;
+}
+
+.service-dialog-title {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 24px 24px 12px !important;
+}
+
+.service-dialog-icon {
+  margin-bottom: 0;
+  flex: 0 0 auto;
+}
+
+.service-dialog-content {
+  padding: 8px 24px 18px !important;
+}
+
+.best-for-panel {
+  margin-top: 20px;
+  padding: 18px;
+  border-radius: 8px;
+  background: #eef7fa;
+  border: 1px solid rgba(20, 50, 74, 0.08);
+}
+
+.best-for-panel h3 {
+  margin-bottom: 6px;
+  color: #087568;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.service-dialog-actions {
+  padding: 0 24px 24px !important;
+}
+
 .image-panel {
   position: relative;
 }
@@ -290,6 +336,25 @@ img {
   object-fit: cover;
   border-radius: 8px;
   box-shadow: 0 24px 58px rgba(8, 74, 126, 0.16);
+}
+
+.about-media {
+  display: grid;
+  gap: 16px;
+}
+
+.about-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.about-gallery img {
+  width: 100%;
+  aspect-ratio: 5 / 3.4;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 16px 38px rgba(8, 74, 126, 0.12);
 }
 
 .check-list {
@@ -355,6 +420,25 @@ img {
   color: #14324a !important;
   border: 1px solid rgba(20, 50, 74, 0.1) !important;
   font-size: 0.98rem !important;
+}
+
+.condition-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.condition-gallery img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 16px 34px rgba(8, 74, 126, 0.13);
+}
+
+.condition-gallery img:first-child {
+  grid-column: span 2;
+  grid-row: span 2;
 }
 
 .testimonial-grid {
@@ -431,6 +515,15 @@ img {
   padding: clamp(22px, 4vw, 34px);
   border: 1px solid rgba(20, 50, 74, 0.1);
   box-shadow: 0 28px 68px rgba(20, 50, 74, 0.11);
+}
+
+.appointment-form .MuiInputLabel-root {
+  background: #ffffff;
+  padding: 0 4px;
+}
+
+.appointment-form .date-field input {
+  min-height: 1.4375em;
 }
 
 .form-grid {
@@ -574,6 +667,10 @@ img {
     grid-template-columns: 1fr;
   }
 
+  .condition-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .footer-grid,
   .footer-bottom {
     grid-template-columns: 1fr;
@@ -630,10 +727,34 @@ img {
     grid-template-columns: 1fr;
   }
 
+  .about-gallery,
+  .condition-gallery {
+    grid-template-columns: 1fr;
+  }
+
+  .condition-gallery img:first-child {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
   .service-card .MuiCardContent-root,
   .testimonial-card .MuiCardContent-root,
   .step-item {
     padding: 22px;
+  }
+
+  .service-dialog-title {
+    padding: 20px 18px 10px !important;
+  }
+
+  .service-dialog-content {
+    padding: 8px 18px 16px !important;
+  }
+
+  .service-dialog-actions {
+    display: grid !important;
+    grid-template-columns: 1fr;
+    padding: 0 18px 20px !important;
   }
 
   .section-block {

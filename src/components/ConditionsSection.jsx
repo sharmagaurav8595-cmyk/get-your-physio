@@ -12,8 +12,8 @@ export default function ConditionsSection() {
             <SectionHeading
               align="left"
               eyebrow="Conditions We Treat"
-              title="Care for common pain, mobility, and rehab needs"
-              description="From everyday stiffness to complex recovery, treatment starts with understanding your symptoms, goals, and comfort level."
+              title="Expert care for frequent pain, mobility, and rehab needs"
+              description="From everyday aches to complex rehabilitation, our personalized home physiotherapy services are designed to reduce pain, restore function, and help you return to the activities you love—comfortably and confidently."
             />
             <Box className="condition-list">
               {conditions.map((condition) => (
@@ -21,8 +21,10 @@ export default function ConditionsSection() {
               ))}
             </Box>
           </Box>
-          <Box className="image-panel">
-            <img src={images.seniorCare} alt="Senior patient receiving guided physiotherapy care" />
+          <Box className="condition-gallery" aria-label="Physiotherapy treatment gallery">
+            {images.conditionGallery.map((image) => (
+              <img key={image.src} src={image.src} alt={image.alt} />
+            ))}
           </Box>
         </Box>
       </Container>
