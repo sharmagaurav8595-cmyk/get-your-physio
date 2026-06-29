@@ -9,7 +9,7 @@ export default function HowItWorks() {
         <SectionHeading
           eyebrow="How It Works"
           title="Book care in four simple steps"
-          description="A simple process helps you move from first message to a personalized physiotherapy plan."
+          description="A simple process helps you move from first message to a personalized Physiotherapy plan."
         />
         <Box className="steps-grid">
           {steps.map(({ title, description, icon: Icon }, index) => (

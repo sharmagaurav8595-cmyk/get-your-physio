@@ -1,8 +1,8 @@
 export const faqs = [
   {
-    question: "Do you provide physiotherapy at home?",
+    question: "Do you provide Physiotherapy at home?",
     answer:
-      "Yes. GetMyPhysio.in offers home visits for patients who need care at home, including senior citizens and post-surgery patients.",
+      "Yes. GetYourPhysio.in offers home Physiotherapy support for athletes, senior citizens, post-surgery recovery patients, and users who prefer care without travel stress.",
   },
   {
     question: "How soon can I book an appointment?",
@@ -10,7 +10,7 @@ export const faqs = [
       "Submit the appointment form or call us directly. Our team will confirm the earliest available slot based on your location and condition.",
   },
   {
-    question: "Is physiotherapy suitable for senior citizens?",
+    question: "Is Physiotherapy suitable for senior citizens?",
     answer:
       "Yes. Sessions are planned according to age, comfort, medical history, balance, and mobility level.",
   },
@@ -25,8 +25,14 @@ export const faqs = [
       "Keep medical reports, comfortable clothing, a firm chair, and a little open space for movement assessment and exercises.",
   },
   {
-    question: "Can physiotherapy help chronic pain?",
+    question: "Can Physiotherapy help chronic pain?",
     answer:
       "Many chronic pain conditions improve with the right combination of education, exercise, manual therapy, and gradual activity planning.",
+  },
+  //add a questuon and anser for yoga sessions
+  {
+    question: "Do you offer yoga sessions?",
+    answer:
+      "Yes. We provide guided yoga sessions tailored to your needs, focusing on flexibility, strength, balance, and stress relief.",
   },
 ];

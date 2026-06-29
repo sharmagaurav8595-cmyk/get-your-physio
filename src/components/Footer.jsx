@@ -20,14 +20,14 @@ export default function Footer() {
               <img src={logo} alt="" className="brand-logo" />
               <Box>
                 <Typography variant="h6" className="brand-name">
-                  GetMyPhysio.in
+                  GetYourPhysio.in
                 </Typography>
                 <Typography className="brand-tagline">Move better. Feel stronger.</Typography>
               </Box>
             </Box>
             <Typography color="text.secondary" mt={2} maxWidth={460}>
-              Professional physiotherapy for pain relief, rehabilitation, senior care, sports
-              recovery, and home treatment support.
+              Professional Physiotherapy for athletes, sports recovery, senior care,
+              post-surgery rehab, posture correction, and home treatment support.
             </Typography>
           </Box>
           <Stack spacing={1}>
@@ -46,12 +46,12 @@ export default function Footer() {
             <Link href={`mailto:${contactDetails.publicEmail}`} underline="hover" color="inherit">
               {contactDetails.publicEmail}
             </Link>
-            <Typography color="text.secondary">Clinic and home physiotherapy appointments</Typography>
+            <Typography color="text.secondary">Home and online Physiotherapy consultations</Typography>
           </Stack>
         </Box>
         <Box className="footer-bottom">
           <Typography color="text.secondary">
-            Copyright {new Date().getFullYear()} GetMyPhysio.in. All rights reserved.
+            Copyright {new Date().getFullYear()} GetYourPhysio.in. All rights reserved.
           </Typography>
           <Typography color="text.secondary">
             This website is for appointment requests and general care information.
