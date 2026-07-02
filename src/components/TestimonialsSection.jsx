@@ -5,12 +5,16 @@ import SectionHeading from "./SectionHeading.jsx";
 
 export default function TestimonialsSection() {
   return (
-    <Box component="section" className="section-block">
+    <Box
+      component="section"
+      className="section-block"
+      sx={{ "& .section-title": { fontSize: "clamp(1.5rem, 3vw, 2rem) !important" } }}
+    >
       <Container maxWidth="xl">
         <SectionHeading
           eyebrow="Patient Testimonials"
-          title="Athletes, patients, and families value clear, steady care"
-          description="Real recovery feels more confident when the plan is explained and the progress is visible."
+          title="Real recovery feels more confident when the plan is explained and the progress is visible."
+          // description="Real recovery feels more confident when the plan is explained and the progress is visible."
         />
         <Box className="testimonial-grid">
           {testimonials.map((testimonial) => (

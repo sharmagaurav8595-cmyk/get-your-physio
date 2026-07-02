@@ -8,7 +8,7 @@ export default function HowItWorks() {
       <Container maxWidth="xl">
         <SectionHeading
           eyebrow="How It Works"
-          title="Book care in four simple steps"
+          title="Book care in 4 simple steps"
           description="A simple process helps you move from first message to a personalized Physiotherapy plan."
         />
         <Box className="steps-grid">
