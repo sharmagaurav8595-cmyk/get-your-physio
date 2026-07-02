@@ -27,17 +27,38 @@ export default function AboutSection() {
             <SectionHeading
               align="left"
               eyebrow="About Us"
-              title="A modern recovery path for athletes, active lives, and families"
-              description="At GetYourPhysio, we believe quality physiotherapy should be accessible, convenient, and personalized. That's why we provide expert home physiotherapy designed around your schedule and your goals. Whether you're recovering from an injury, surgery, sports-related pain, or managing chronic conditions, our evidence-based approach focuses on restoring function, improving mobility, and delivering long-term results—not just temporary pain relief."
+              title="Expert Home Physiotherapy for Pain Relief, Recovery & Performance Enhancement"
+//               description="At GetYourPhysio, we make quality physiotherapy accessible, convenient, and personalized at home.
+// Our expert physiotherapists provide one-on-one care tailored to your needs and goals.
+// We focus on evidence-based assessment and treatment for injuries, surgery recovery, pain, mobility, and fitness.
+// Our approach targets the root cause, not just temporary symptom relief.
+// We help restore movement, improve function, prevent future injuries, and support long-term recovery.
+
+// Our Holistic approach also includes <b>Yoga sessions<b>, Breathing exercises that compliment Physiotherapy, helping you remain active, mobile, and pain-free. 
+// "
+ description={
+    <>
+      At GetYourPhysio, we make quality Physiotherapy accessible, convenient, and personalized at home.
+      Our expert Physiotherapists provide one-on-one care tailored to your needs and goals.
+      We focus on evidence-based assessment and treatment for injuries, surgery recovery, pain, mobility, and fitness.
+      Our approach targets the root cause, not just temporary symptom relief.
+      We help restore movement, improve function, prevent future injuries, and support long-term recovery.
+
+      <br />
+      {/* <br /> */}
+
+      Our Holistic approach also includes <b>Yoga sessions</b>, Breathing exercises that complement Physiotherapy, helping you remain active, mobile, and pain-free.
+    </>
+  }
             />
-            <Stack spacing={1.4} className="check-list">
+            {/* <Stack spacing={1.4} className="check-list">
               {points.map((point) => (
                 <Box key={point} className="check-item">
                   <CheckCircle2 size={22} />
                   <Typography>{point}</Typography>
                 </Box>
               ))}
-            </Stack>
+            </Stack> */}
             <Button
               component="a"
               href="#contact"

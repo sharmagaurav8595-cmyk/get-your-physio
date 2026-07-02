@@ -5,7 +5,7 @@ import SectionHeading from "./SectionHeading.jsx";
 const reasons = [
   {
     title: "Personalized Care",
-    description: "Every treatment plan is tailored to your condition, lifestyle adn recovery goals.",
+    description: "Every treatment plan is tailored to your condition, lifestyle and recovery goals.",
     icon: BadgeCheck,
   },
   {
@@ -15,12 +15,12 @@ const reasons = [
   },  
   {
     title: "Patient Education",
-    description: "We help you understand your condition empowering you to recover confidently.",
+    description: "We help you understand your condition, empowering you to recover confidently.",
     icon: HeartPulse,
   },
   {
     title: "Qualified Care",
-    description: "Structured assessments and treatment plans led by trained Physiotherapy professionals.",
+    description: "Structured assessment and treatment plans led by Expert-Physio professionals.",
     icon: BadgeCheck,
   },
   
@@ -33,7 +33,7 @@ export default function WhyChooseUs() {
       <Container maxWidth="xl">
         <SectionHeading
           eyebrow="Why Choose Us"
-          title="Professional care that feels clear, steady, and easy to trust"
+          title="Trusted by athletes, professionals, and families"
           description="Everything is designed to make appointments, treatment and recovery fast, simple and convenient for you and your family."
         />
         <Box className="reason-grid">

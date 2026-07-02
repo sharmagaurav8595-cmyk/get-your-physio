@@ -11,6 +11,9 @@ import malePhysioPostureOffice from "./generated/male-physio-posture-office.png"
 import malePhysioSenior from "./generated/male-physio-senior.png";
 import malePhysioSportsReturn from "./generated/male-physio-sports-return.png";
 import malePhysioTaping from "./generated/male-physio-taping.png";
+import cup1 from "./generated/cup1.png";
+import needle1 from "./generated/needle1.png";
+import yoga1 from "./generated/yoga1.png";
 
 export const images = {
   hero: malePhysioHero,
@@ -20,7 +23,7 @@ export const images = {
   homeVisit: malePhysioHomeConsultation,
   aboutGallery: [
     {
-      src: malePhysioMobilityBreathing,
+      src: cup1,
       alt: "Male Physiotherapist guiding mobility training",
     },
     {
@@ -42,11 +45,11 @@ export const images = {
       alt: "Male Physiotherapist using cupping therapy",
     },
     {
-      src: malePhysioNeedlingPrep,
+      src: needle1,
       alt: "Male Physiotherapist preparing needling therapy",
     },
     {
-      src: malePhysioPostureOffice,
+      src: yoga1,
       alt: "Male Physiotherapist guiding posture correction",
     },
     {

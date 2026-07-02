@@ -30,7 +30,8 @@ export default function ServicesSection() {
         <SectionHeading
           eyebrow="Our Services"
           title="Physiotherapy and Sports recovery support built around your goals"
-          description="Start with athlete-focused recovery, sports injury rehab, strength, mobility, posture, and home Physiotherapy care for every stage of movement."
+          description="
+          Personalized physiotherapy solutions for pain relief, injury recovery, performance enhancement and overall well-being."
         />
         <Box className="service-grid">
           {services.map(({ title, description, icon: Icon, bestFor }) => (

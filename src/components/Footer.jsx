@@ -1,5 +1,6 @@
 import { Box, Container, Link, Stack, Typography } from "@mui/material";
-import logo from "../assets/logo.svg";
+// import logo from "../assets/logo.svg";
+import logoNew3 from "../assets/logoNew3.jpg";
 import { contactDetails } from "../data/contact.js";
 
 const footerLinks = [
@@ -17,7 +18,7 @@ export default function Footer() {
         <Box className="footer-grid">
           <Box>
             <Box className="brand-link footer-brand">
-              <img src={logo} alt="" className="brand-logo" />
+              <img src={logoNew3} alt="" className="brand-logo" />
               <Box>
                 <Typography variant="h6" className="brand-name">
                   GetYourPhysio.in

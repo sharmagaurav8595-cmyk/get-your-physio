@@ -16,8 +16,8 @@ export default function FaqSection() {
       <Container maxWidth="md">
         <SectionHeading
           eyebrow="FAQ"
-          title="Common questions before booking"
-          description="Simple answers for patients, family members, and caregivers."
+          title="Frequently Asked Questions"
+          // description="Simple answers for patients, family members, and caregivers."
         />
         <Box className="faq-list">
           {faqs.map((faq, index) => (
