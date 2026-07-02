@@ -1,6 +1,6 @@
 import { Box, Container, Link, Stack, Typography } from "@mui/material";
 // import logo from "../assets/logo.svg";
-import logoNew3 from "../assets/logoNew3.jpg";
+import logoNew3 from "../assets/logoNew2.jpg";
 import { contactDetails } from "../data/contact.js";
 
 const footerLinks = [

@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import { CalendarCheck, Menu, Phone, X } from "lucide-react";
 import logo from "../assets/logo.svg";
-import logo3 from "../assets/logo3.jpg";
+import logo3 from "../assets/logoNew.jpg";
 import { contactDetails } from "../data/contact.js";
 
 const navLinks = [
