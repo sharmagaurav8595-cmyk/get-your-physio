@@ -23,7 +23,7 @@ export default function Footer() {
                 <Typography variant="h6" className="brand-name">
                   GetYourPhysio.in
                 </Typography>
-                <Typography className="brand-tagline">Move better. Feel stronger.</Typography>
+                <Typography className="brand-tagline">Healing at your doorstep</Typography>
               </Box>
             </Box>
             <Typography color="text.secondary" mt={2} maxWidth={460}>

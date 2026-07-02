@@ -36,7 +36,9 @@ export default function Header() {
       <Container maxWidth="xl">
         <Toolbar disableGutters className="header-toolbar">
           <Box component="a" href="#home" className="brand-link" aria-label="GetYourPhysio.in home">
-            <img src={logo3} alt="" className="brand-logo" />
+            <Box className="brand-logo-frame">
+              <img src={logo3} alt="" className="brand-logo" />
+            </Box>
             <Box>
               <Typography variant="h6" className="brand-name">
                 GetYourPhysio.in
@@ -90,7 +92,9 @@ export default function Header() {
         <Box id="mobile-navigation" className="mobile-drawer" role="navigation" aria-label="Mobile navigation">
           <Stack direction="row" alignItems="center" justifyContent="space-between" mb={2}>
             <Box className="brand-link">
-              <img src={logo3} alt="" className="brand-logo" />
+              <Box className="brand-logo-frame">
+                <img src={logo3} alt="" className="brand-logo" />
+              </Box>
               <Typography variant="h6" className="brand-name">
                 GetYourPhysio.in
               </Typography>
