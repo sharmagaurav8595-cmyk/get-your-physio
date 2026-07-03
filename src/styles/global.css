@@ -56,11 +56,12 @@ img {
 
 .brand-logo-frame .brand-logo {
   position: absolute;
-  top: -15%;
-  left: -25%;
+  top: 58%;
+  left: 50%;
   width: 150%;
   height: 150%;
   max-width: none;
+  transform: translate(-50%, -50%);
 }
 
 .site-header .header-toolbar .brand-logo-frame {
@@ -87,10 +88,19 @@ img {
   color: #0c4775;
 }
 
+.site-header .brand-name {
+  font-size: 2rem !important;
+  font-weight: 700 !important;
+}
+
 .brand-tagline {
   font-size: 0.82rem !important;
   color: #5e7688;
   line-height: 1.2 !important;
+}
+
+.site-header .brand-tagline {
+  text-align: center;
 }
 
 .desktop-nav {
@@ -811,7 +821,7 @@ img {
   }
 
   .brand-name {
-    font-size: 1rem !important;
+    font-size: 1.1rem !important;
     overflow-wrap: anywhere;
   }
 
