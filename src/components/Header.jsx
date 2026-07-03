@@ -67,7 +67,9 @@ export default function Header() {
             </Button>
             <Button
               component="a"
-              href="#contact"
+              href={contactDetails.whatsappHref}
+              target="_blank"
+              rel="noopener noreferrer"
               variant="contained"
               color="primary"
               startIcon={<CalendarCheck size={18} />}
@@ -118,7 +120,9 @@ export default function Header() {
           <Stack spacing={1.5} mt={2}>
             <Button
               component="a"
-              href="#contact"
+              href={contactDetails.whatsappHref}
+              target="_blank"
+              rel="noopener noreferrer"
               variant="contained"
               startIcon={<CalendarCheck size={18} />}
               onClick={closeDrawer}
