@@ -1,6 +1,7 @@
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { images } from "../assets/images.js";
+import { contactDetails } from "../data/contact.js";
 import SectionHeading from "./SectionHeading.jsx";
 
 const points = [
@@ -61,7 +62,7 @@ export default function AboutSection() {
             </Stack> */}
             <Button
               component="a"
-              href="#contact"
+              href={contactDetails.whatsappHref}
               variant="contained"
               endIcon={<ArrowRight size={18} />}
               sx={{ mt: 3 }}
