@@ -13,7 +13,7 @@ export default function ConditionsSection() {
               align="left"
               eyebrow="Conditions We Treat"
               title="Expert care for frequent pain, mobility, and rehab needs"
-              description="From everyday aches to complex rehabilitation, our personalized home physiotherapy services are designed to reduce pain, restore function, and help you return to the activities you love—comfortably and confidently."
+              description="From everyday aches to complex rehabilitation, our personalized home physiotherapy services are designed to reduce pain, restore function, and help you return to the activities you love, comfortably and confidently."
             />
             <Box className="condition-list">
               {conditions.map((condition) => (

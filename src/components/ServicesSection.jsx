@@ -15,6 +15,7 @@ import {
   Typography,
 } from "@mui/material";
 import { CalendarCheck, X } from "lucide-react";
+import { contactDetails } from "../data/contact.js";
 import { services } from "../data/services.js";
 import SectionHeading from "./SectionHeading.jsx";
 
@@ -94,7 +95,7 @@ export default function ServicesSection() {
           </Button>
           <Button
             component="a"
-            href="#contact"
+            href={contactDetails.whatsappHref}
             variant="contained"
             startIcon={<CalendarCheck size={18} />}
             onClick={closeDialog}
