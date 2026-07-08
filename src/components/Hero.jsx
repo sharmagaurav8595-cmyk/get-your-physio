@@ -26,7 +26,7 @@ export default function Hero() {
             <Stack direction={{ xs: "column", sm: "row" }} spacing={1.5} className="hero-actions">
               <Button
                 component="a"
-                href="#contact"
+                href={contactDetails.whatsappHref}
                 variant="contained"
                 size="large"
                 startIcon={<CalendarCheck size={20} />}

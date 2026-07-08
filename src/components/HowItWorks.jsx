@@ -1,4 +1,5 @@
 import { Box, Container, Typography } from "@mui/material";
+import { contactDetails } from "../data/contact.js";
 import { steps } from "../data/steps.js";
 import SectionHeading from "./SectionHeading.jsx";
 
@@ -13,7 +14,12 @@ export default function HowItWorks() {
         />
         <Box className="steps-grid">
           {steps.map(({ title, description, icon: Icon }, index) => (
-            <Box key={title} className="step-item">
+            <Box
+              key={title}
+              component={index === 0 ? "a" : "div"}
+              href={index === 0 ? contactDetails.whatsappHref : undefined}
+              className="step-item"
+            >
               <Box className="step-number">{index + 1}</Box>
               <Box className="step-icon">
                 <Icon size={28} />
