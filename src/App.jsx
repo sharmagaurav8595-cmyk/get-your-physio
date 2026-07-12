@@ -11,12 +11,26 @@ import FaqSection from "./components/FaqSection.jsx";
 import ContactSection from "./components/ContactSection.jsx";
 import Footer from "./components/Footer.jsx";
 import StickyActions from "./components/StickyActions.jsx";
+import PageLoader from "./animations/PageLoader.jsx";
+import MotionController from "./animations/MotionController.jsx";
+import AthleteGatewaySection from "./components/AthleteGatewaySection.jsx";
+import AthletePage from "./pages/AthletePage.jsx";
 
 export default function App() {
+  const route = window.location.pathname.replace(/\/+$/, "") || "/";
+
   return (
     <Box>
+      <PageLoader />
+    
+      <MotionController />
+{/* {route === "/athletes" ? (
+      <AthletePage />
+    ) : ( */}
+      <>
       <Header />
       <main>
+          {/* <AthletePage /> */}
         <Hero />
         <HowItWorks />
         <ServicesSection />
@@ -29,6 +43,9 @@ export default function App() {
       </main>
       <Footer />
       <StickyActions />
+</>
+    {/* )
+  } */}
     </Box>
   );
 }
