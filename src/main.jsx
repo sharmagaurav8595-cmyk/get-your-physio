@@ -4,6 +4,7 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import App from "./App.jsx";
 import { theme } from "./theme.js";
 import "./styles/global.css";
+import "./styles/animations.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

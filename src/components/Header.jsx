@@ -24,6 +24,7 @@ const navLinks = [
   { label: "About", href: "#about" },
   { label: "FAQ", href: "#faq" },
   { label: "Contact", href: "#contact" },
+  // { label: "Athlete Gateway", href: "/athletes" },
 ];
 
 export default function Header() {

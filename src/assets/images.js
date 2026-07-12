@@ -21,6 +21,10 @@ export const images = {
   therapy: malePhysioAssessment,
   seniorCare: malePhysioSenior,
   sports: malePhysioSportsReturn,
+  performance: malePhysioMovementAssessment,
+  mobility: malePhysioFlexibilityRecovery,
+  strength: malePhysioManualTherapy,
+  recovery: malePhysioSportsReturn,
   homeVisit: malePhysioHomeConsultation,
   aboutGallery: [
     {
