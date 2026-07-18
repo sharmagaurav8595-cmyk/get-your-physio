@@ -5,6 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:all": "node server/dev-all.mjs",
+    "server": "nodemon server/server.mjs",
+    "create-admin": "node server/create-admin.mjs",
     "build": "vite build",
     "preview": "vite preview"
   },
@@ -13,7 +16,12 @@
     "@emotion/styled": "^11.14.1",
     "@mui/material": "^9.1.2",
     "@vitejs/plugin-react": "^6.0.3",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
     "lucide-react": "^1.21.0",
+    "multer": "^2.2.0",
+    "nodemailer": "^9.0.3",
+    "nodemon": "^3.1.14",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "vite": "^8.1.0"

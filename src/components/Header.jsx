@@ -13,7 +13,7 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import { CalendarCheck, Menu, Phone, X } from "lucide-react";
+import { CalendarCheck, LogIn, Menu, Phone, X } from "lucide-react";
 import logo from "../assets/logo.svg";
 import logo3 from "../assets/logoNew.jpg";
 import { contactDetails } from "../data/contact.js";
@@ -57,6 +57,14 @@ export default function Header() {
           </Stack>
 
           <Stack direction="row" spacing={1} className="desktop-actions">
+            {/* <Button
+              component="a"
+              href="/login"
+              color="primary"
+              startIcon={<LogIn size={18} />}
+            >
+              Login
+            </Button> */}
             <Button
               component="a"
               href={contactDetails.phoneHref}
@@ -119,6 +127,15 @@ export default function Header() {
             ))}
           </List>
           <Stack spacing={1.5} mt={2}>
+            {/* <Button
+              component="a"
+              href="/login"
+              variant="outlined"
+              startIcon={<LogIn size={18} />}
+              onClick={closeDrawer}
+            >
+              Login / Sign up
+            </Button> */}
             <Button
               component="a"
               href={contactDetails.whatsappHref}
