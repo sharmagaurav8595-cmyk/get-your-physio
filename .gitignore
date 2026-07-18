@@ -5,3 +5,9 @@ node_modules/
 *.log
 # Ignore environment variable files
 .env
+.env.*
+!.env.example
+
+# Local backend data and private credential uploads
+server/data/
+server/uploads/
