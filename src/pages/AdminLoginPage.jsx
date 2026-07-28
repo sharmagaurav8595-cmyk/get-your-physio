@@ -4,7 +4,7 @@ import { ArrowRight, KeyRound, LockKeyhole, Mail, ShieldCheck, Sparkles } from "
 import AuthHeader from "../features/auth/AuthHeader.jsx";
 import OtpDialog from "../features/auth/OtpDialog.jsx";
 import { goTo } from "../features/auth/authStore.js";
-import { requestOtp, setSessionToken, verifyOtp } from "../features/auth/api.js";
+import { requestOtp, setAdminSessionToken, verifyOtp } from "../features/auth/api.js";
 
 export default function AdminLoginPage() {
   const [email, setEmail] = useState("");
@@ -26,7 +26,7 @@ export default function AdminLoginPage() {
 
   const verify = async (otp) => {
     const result = await verifyOtp(email, "admin", "login", otp);
-    setSessionToken(result.token);
+    setAdminSessionToken(result.token);
     goTo("/admin");
   };
 

@@ -45,6 +45,8 @@ const patientSteps = [
   { label: "Care & location", caption: "Personalise your care", icon: MapPin },
 ];
 
+const MAX_DEGREE_FILE_SIZE = 3 * 1024 * 1024;
+
 const initialForm = {
   name: "",
   age: "",
@@ -287,6 +289,14 @@ export default function OnboardingPage({ role }) {
                   accept="application/pdf,.pdf"
                   onChange={(event) => {
                     const file = event.target.files?.[0] || null;
+                    if (file && file.size > MAX_DEGREE_FILE_SIZE) {
+                      event.target.value = "";
+                      setDegreeDocument(null);
+                      setForm((current) => ({ ...current, degreeFile: "" }));
+                      setError("Degree PDF must be 3 MB or smaller.");
+                      return;
+                    }
+                    setError("");
                     setDegreeDocument(file);
                     setForm((current) => ({ ...current, degreeFile: file?.name || "" }));
                   }}
@@ -294,7 +304,7 @@ export default function OnboardingPage({ role }) {
                 <span>{form.degreeFile ? <FileCheck2 size={28} /> : <UploadCloud size={28} />}</span>
                 <Box>
                   <strong>{form.degreeFile || "Upload degree certificate (PDF) *"}</strong>
-                  <small>{form.degreeFile ? "Document ready for verification" : "Click to choose a PDF, up to 10 MB"}</small>
+                  <small>{form.degreeFile ? "Document ready for verification" : "Click to choose a PDF, up to 3 MB"}</small>
                 </Box>
                 <Chip label={form.degreeFile ? "Selected" : "Choose PDF"} color={form.degreeFile ? "success" : "primary"} variant="outlined" />
               </Box>

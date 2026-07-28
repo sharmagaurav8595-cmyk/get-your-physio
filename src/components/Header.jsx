@@ -57,14 +57,14 @@ export default function Header() {
           </Stack>
 
           <Stack direction="row" spacing={1} className="desktop-actions">
-            {/* <Button
+            <Button
               component="a"
               href="/login"
               color="primary"
               startIcon={<LogIn size={18} />}
             >
               Login
-            </Button> */}
+            </Button>
             <Button
               component="a"
               href={contactDetails.phoneHref}
@@ -127,7 +127,7 @@ export default function Header() {
             ))}
           </List>
           <Stack spacing={1.5} mt={2}>
-            {/* <Button
+            <Button
               component="a"
               href="/login"
               variant="outlined"
@@ -135,7 +135,7 @@ export default function Header() {
               onClick={closeDrawer}
             >
               Login / Sign up
-            </Button> */}
+            </Button>
             <Button
               component="a"
               href={contactDetails.whatsappHref}
