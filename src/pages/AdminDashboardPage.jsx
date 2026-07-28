@@ -24,6 +24,7 @@ import {
   CalendarCheck2,
   ChevronRight,
   ClipboardList,
+  Download,
   Filter,
   LogOut,
   MapPin,
@@ -38,7 +39,7 @@ import {
 } from "lucide-react";
 import logo from "../assets/logoNew.jpg";
 import { goTo } from "../features/auth/authStore.js";
-import { adminLogout, createAdminAppointment, getAdminOverview, updateAdminAppointment, updatePhysioVerification } from "../features/auth/api.js";
+import { adminLogout, createAdminAppointment, downloadAdminPhysioDegreeDocument, getAdminOverview, updateAdminAppointment, updatePhysioVerification } from "../features/auth/api.js";
 
 const formatDate = (value) => new Intl.DateTimeFormat("en-IN", { dateStyle: "medium", timeStyle: "short" }).format(new Date(value));
 const toDateTimeInput = (value) => {
@@ -66,7 +67,7 @@ function AdminBookingDialog({ open, patients, physios, onClose, onCreated }) {
   const submit = async () => {
     setSaving(true); setError("");
     try {
-      await createAdminAppointment({ ...form, patientUserId: Number(form.patientUserId), physioUserId: Number(form.physioUserId) });
+      await createAdminAppointment(form);
       setForm({ patientUserId: "", physioUserId: "", careType: "Home visit", scheduledAt: "" });
       await onCreated();
       onClose();
@@ -104,6 +105,7 @@ export default function AdminDashboardPage() {
   const [status, setStatus] = useState("all");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [notice, setNotice] = useState("");
   const [updatingId, setUpdatingId] = useState(null);
   const [bookingDialogOpen, setBookingDialogOpen] = useState(false);
 
@@ -133,14 +135,40 @@ export default function AdminDashboardPage() {
   };
   const changeAssignment = async (id, physioUserId) => {
     setUpdatingId(`booking-${id}`);
-    try { await updateAdminAppointment(id, { physioUserId: physioUserId ? Number(physioUserId) : null }); await load(); }
+    try { await updateAdminAppointment(id, { physioUserId: physioUserId || null }); await load(); }
     catch (requestError) { setError(requestError.message); }
     finally { setUpdatingId(null); }
   };
   const changeVerification = async (id, nextStatus) => {
     setUpdatingId(`physio-${id}`);
-    try { await updatePhysioVerification(id, nextStatus); await load(); }
+    setNotice("");
+    try {
+      const result = await updatePhysioVerification(id, nextStatus);
+      if (result.notification?.mode === "smtp") {
+        setNotice(`Verification status updated and email sent to ${result.notification.recipient}.`);
+      } else if (result.notification?.mode === "development") {
+        setNotice("Verification status updated. Development email was logged in the backend terminal.");
+      } else {
+        setNotice("Verification status was already up to date.");
+      }
+      await load();
+    }
     catch (requestError) { setError(requestError.message); }
+    finally { setUpdatingId(null); }
+  };
+  const downloadDegreeDocument = async (physio) => {
+    setUpdatingId(`document-${physio.id}`);
+    try {
+      const { blob, filename } = await downloadAdminPhysioDegreeDocument(physio.id);
+      const url = URL.createObjectURL(blob);
+      const anchor = document.createElement("a");
+      anchor.href = url;
+      anchor.download = filename;
+      document.body.appendChild(anchor);
+      anchor.click();
+      anchor.remove();
+      window.setTimeout(() => URL.revokeObjectURL(url), 1_000);
+    } catch (requestError) { setError(requestError.message); }
     finally { setUpdatingId(null); }
   };
 
@@ -165,6 +193,7 @@ export default function AdminDashboardPage() {
       <Container maxWidth="xl" className="admin-content">
         <Box className="admin-welcome auth-enter"><Box><Typography className="admin-kicker"><ShieldCheck size={16} />Care operations</Typography><Typography component="h1">Admin overview</Typography><Typography color="text.secondary">Create bookings, assign Physios, review registered users, and filter your network by location.</Typography></Box><Stack direction="row" spacing={1}><Button variant="contained" startIcon={<UserPlus size={17} />} onClick={() => setBookingDialogOpen(true)}>Add booking</Button><Button variant="outlined" startIcon={<RefreshCw size={17} />} onClick={load}>Refresh data</Button></Stack></Box>
         {error && <Alert severity="error" sx={{ mt: 2 }}>{error}</Alert>}
+        {notice && <Alert severity="success" sx={{ mt: 2 }} onClose={() => setNotice("")}>{notice}</Alert>}
 
         <Box className="admin-stats auth-enter auth-enter-delay">
           <AdminStat icon={CalendarCheck2} label="Booking requests" value={stats.bookings || 0} tone="blue" onClick={() => setActiveTab("bookings")} />
@@ -192,7 +221,7 @@ export default function AdminDashboardPage() {
 
           {!loading && activeTab === "patients" && (patients.length ? <Box className="admin-table-wrap"><table className="admin-table"><thead><tr><th>Patient</th><th>Contact</th><th>Care need</th><th>Location</th><th>Bookings</th><th>Joined</th></tr></thead><tbody>{patients.map((patient) => <tr key={patient.id}><td><Box className="admin-person"><Avatar>{initials(patient.name)}</Avatar><span><strong>{patient.name}</strong><small>{patient.gender}, {patient.age || "Age not added"}</small></span></Box></td><td><strong>{patient.mobile}</strong><small>{patient.email}</small></td><td><strong>{patient.concern || "Not added"}</strong><small>{patient.preferred_care || "No preference"}</small></td><td><strong>{patient.city || "—"}</strong><small>{[patient.state, patient.pincode].filter(Boolean).join(" · ")}</small></td><td><Chip label={patient.appointment_count} color="primary" variant="outlined" size="small" /></td><td>{new Date(patient.created_at).toLocaleDateString("en-IN")}</td></tr>)}</tbody></table></Box> : <EmptyState label="patients" />)}
 
-          {!loading && activeTab === "physios" && (physios.length ? <Box className="admin-table-wrap"><table className="admin-table"><thead><tr><th>Physio</th><th>Contact</th><th>Qualification</th><th>Location</th><th>Registration</th><th>Verification status</th></tr></thead><tbody>{physios.map((physio) => <tr key={physio.id}><td><Box className="admin-person"><Avatar className="physio-avatar">{initials(physio.name)}</Avatar><span><strong>{physio.name}</strong><small>{physio.booking_count} assigned bookings</small></span></Box></td><td><strong>{physio.mobile}</strong><small>{physio.email}</small></td><td><strong>{physio.degree || physio.qualification}</strong><small>{physio.qualification}</small></td><td><strong>{physio.city || "—"}</strong><small>{[physio.state, physio.pincode].filter(Boolean).join(" · ")}</small></td><td>{physio.registration_number}</td><td><TextField select size="small" disabled={updatingId === `physio-${physio.id}`} value={physio.credential_status} onChange={(event) => changeVerification(physio.id, event.target.value)} className="verification-status-select"><MenuItem value="pending">Pending</MenuItem><MenuItem value="verified">Verified</MenuItem><MenuItem value="rejected">Rejected</MenuItem></TextField></td></tr>)}</tbody></table></Box> : <EmptyState label="Physios" />)}
+          {!loading && activeTab === "physios" && (physios.length ? <Box className="admin-table-wrap"><table className="admin-table"><thead><tr><th>Physio</th><th>Contact</th><th>Qualification</th><th>Location</th><th>Registration & document</th><th>Verification status</th></tr></thead><tbody>{physios.map((physio) => <tr key={physio.id}><td><Box className="admin-person"><Avatar className="physio-avatar">{initials(physio.name)}</Avatar><span><strong>{physio.name}</strong><small>{physio.booking_count} assigned bookings</small></span></Box></td><td><strong>{physio.mobile}</strong><small>{physio.email}</small></td><td><strong>{physio.degree || physio.qualification}</strong><small>{physio.qualification}</small></td><td><strong>{physio.city || "—"}</strong><small>{[physio.state, physio.pincode].filter(Boolean).join(" · ")}</small></td><td><strong>{physio.registration_number}</strong>{physio.has_degree_document ? <Button size="small" startIcon={<Download size={14} />} disabled={updatingId === `document-${physio.id}`} onClick={() => downloadDegreeDocument(physio)}>{updatingId === `document-${physio.id}` ? "Preparing..." : "Degree PDF"}</Button> : <small>No document</small>}</td><td><TextField select size="small" disabled={updatingId === `physio-${physio.id}`} value={physio.credential_status} onChange={(event) => changeVerification(physio.id, event.target.value)} className="verification-status-select"><MenuItem value="pending">Pending</MenuItem><MenuItem value="verified">Verified</MenuItem><MenuItem value="rejected">Rejected</MenuItem></TextField></td></tr>)}</tbody></table></Box> : <EmptyState label="Physios" />)}
         </Paper>
       </Container>
       <AdminBookingDialog open={bookingDialogOpen} patients={patientOptions} physios={physioOptions} onClose={() => setBookingDialogOpen(false)} onCreated={load} />

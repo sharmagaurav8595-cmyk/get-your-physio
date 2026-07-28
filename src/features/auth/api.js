@@ -1,16 +1,29 @@
-const TOKEN_KEY = "gyp-session-token";
+const LEGACY_TOKEN_KEY = "gyp-session-token";
+const USER_TOKEN_KEY = "gyp-user-session-token";
+const ADMIN_TOKEN_KEY = "gyp-admin-session-token";
 
 export function getSessionToken() {
-  return localStorage.getItem(TOKEN_KEY) || "";
+  return localStorage.getItem(USER_TOKEN_KEY) || localStorage.getItem(LEGACY_TOKEN_KEY) || "";
 }
 
 export function setSessionToken(token) {
-  if (token) localStorage.setItem(TOKEN_KEY, token);
-  else localStorage.removeItem(TOKEN_KEY);
+  if (token) localStorage.setItem(USER_TOKEN_KEY, token);
+  else localStorage.removeItem(USER_TOKEN_KEY);
+  localStorage.removeItem(LEGACY_TOKEN_KEY);
+}
+
+export function getAdminSessionToken() {
+  return localStorage.getItem(ADMIN_TOKEN_KEY) || localStorage.getItem(LEGACY_TOKEN_KEY) || "";
+}
+
+export function setAdminSessionToken(token) {
+  if (token) localStorage.setItem(ADMIN_TOKEN_KEY, token);
+  else localStorage.removeItem(ADMIN_TOKEN_KEY);
+  localStorage.removeItem(LEGACY_TOKEN_KEY);
 }
 
 async function request(path, options = {}) {
-  const token = getSessionToken();
+  const token = path.startsWith("/api/admin/") ? getAdminSessionToken() : getSessionToken();
   const headers = new Headers(options.headers || {});
   if (token) headers.set("Authorization", `Bearer ${token}`);
   if (options.body && !(options.body instanceof FormData)) headers.set("Content-Type", "application/json");
@@ -66,7 +79,7 @@ export async function logout() {
 
 export async function adminLogout() {
   try { await request("/api/admin/logout", { method: "POST" }); }
-  finally { setSessionToken(""); }
+  finally { setAdminSessionToken(""); }
 }
 
 export function getAdminOverview({ location = "", status = "all" } = {}) {
@@ -84,6 +97,27 @@ export function createAdminAppointment(appointment) {
 
 export function updatePhysioVerification(id, status) {
   return request(`/api/admin/physios/${id}/verification`, { method: "PATCH", body: JSON.stringify({ status }) });
+}
+
+export async function downloadAdminPhysioDegreeDocument(id) {
+  const token = getAdminSessionToken();
+  const response = await fetch(`/api/admin/physios/${id}/degree-document`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  if (!response.ok) {
+    const data = await response.json().catch(() => null);
+    const error = new Error(data?.error?.message || "The degree document could not be downloaded.");
+    error.code = data?.error?.code;
+    error.status = response.status;
+    throw error;
+  }
+  const disposition = response.headers.get("Content-Disposition") || "";
+  const encodedName = disposition.match(/filename\*=UTF-8''([^;]+)/i)?.[1];
+  const plainName = disposition.match(/filename="?([^";]+)"?/i)?.[1];
+  return {
+    blob: await response.blob(),
+    filename: encodedName ? decodeURIComponent(encodedName) : plainName || "degree-document.pdf",
+  };
 }
 
 export function createAppointment(appointment) {

@@ -3,11 +3,16 @@
   "version": "0.5.0",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=22 <25"
+  },
   "scripts": {
     "dev": "vite",
     "dev:all": "node server/dev-all.mjs",
     "server": "nodemon server/server.mjs",
+    "start": "node server/server.mjs",
     "create-admin": "node server/create-admin.mjs",
+    "migrate:sqlite": "node server/migrate-sqlite-to-mongodb.mjs",
     "build": "vite build",
     "preview": "vite preview"
   },
@@ -19,6 +24,7 @@
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "lucide-react": "^1.21.0",
+    "mongodb": "^7.5.0",
     "multer": "^2.2.0",
     "nodemailer": "^9.0.3",
     "nodemon": "^3.1.14",
