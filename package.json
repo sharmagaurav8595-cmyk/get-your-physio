@@ -13,6 +13,7 @@
     "start": "node server/server.mjs",
     "create-admin": "node server/create-admin.mjs",
     "migrate:sqlite": "node server/migrate-sqlite-to-mongodb.mjs",
+    "deck:profile": "node scripts/generate-team-india-running-deck.mjs",
     "build": "vite build",
     "preview": "vite preview"
   },
@@ -31,5 +32,8 @@
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "vite": "^8.1.0"
+  },
+  "devDependencies": {
+    "pptxgenjs": "^4.0.1"
   }
 }
