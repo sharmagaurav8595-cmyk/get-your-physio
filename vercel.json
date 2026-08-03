@@ -3,7 +3,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://api.getyourphysio.in/api/:path*"
+      "destination": "https://get-your-physio.onrender.com/api/:path*"
     },
     {
       "source": "/login",
