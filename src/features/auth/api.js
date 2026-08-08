@@ -53,10 +53,13 @@ export function verifyOtp(email, role, purpose, otp) {
   return request("/api/auth/verify-otp", { method: "POST", body: JSON.stringify({ email, role, purpose, otp }) });
 }
 
-export async function registerAccount(role, profile, verificationToken, degreeFile) {
+export function loginAccount(email, role) {
+  return request("/api/auth/login", { method: "POST", body: JSON.stringify({ email, role }) });
+}
+
+export async function registerAccount(role, profile, degreeFile) {
   const form = new FormData();
   form.append("role", role);
-  form.append("verificationToken", verificationToken);
   form.append("profile", JSON.stringify(profile));
   if (degreeFile) form.append("degreeFile", degreeFile);
   const result = await request("/api/auth/register", { method: "POST", body: form });
@@ -65,7 +68,7 @@ export async function registerAccount(role, profile, verificationToken, degreeFi
 }
 
 export function getDashboard() {
-  return request("/api/dashboard");
+  return request("/api/dashboard", { cache: "no-store" });
 }
 
 export function updateProfile(profile) {
@@ -93,6 +96,10 @@ export function updateAdminAppointment(id, updates) {
 
 export function createAdminAppointment(appointment) {
   return request("/api/admin/appointments", { method: "POST", body: JSON.stringify(appointment) });
+}
+
+export function createAdminPatient(patient) {
+  return request("/api/admin/patients", { method: "POST", body: JSON.stringify(patient) });
 }
 
 export function updatePhysioVerification(id, status) {

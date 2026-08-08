@@ -32,8 +32,7 @@ export default function App() {
   }, []);
 
   if (route === "/login") return <LoginPage />;
-  if (route === "/physio/register") return <OnboardingPage role="physio" />;
-  if (route === "/patient/register") return <OnboardingPage role="patient" />;
+  if (route === "/physio/register") return <OnboardingPage />;
   if (route === "/dashboard/physio") return <DashboardPage role="physio" />;
   if (route === "/dashboard/patient") return <DashboardPage role="patient" />;
   if (route === "/admin/login") return <AdminLoginPage />;

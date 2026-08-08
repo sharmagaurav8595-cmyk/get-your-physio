@@ -1,12 +1,15 @@
 import { GridFSBucket, MongoClient, ObjectId } from "mongodb";
+import { setServers } from "node:dns";
 
 const uri = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017";
 const databaseName = process.env.MONGODB_DB_NAME || "getyourphysio";
 
-const client = new MongoClient(uri, {
+const createClient = () => new MongoClient(uri, {
   maxPoolSize: 10,
   serverSelectionTimeoutMS: 5_000,
 });
+
+let client = createClient();
 
 let database;
 let degreeBucket;
@@ -17,7 +20,16 @@ export const collections = {};
 export async function connectDatabase() {
   if (connected) return database;
 
-  await client.connect();
+  try {
+    await client.connect();
+  } catch (error) {
+    // Some Windows DNS configurations refuse Node's Atlas SRV lookup even
+    // when the same record resolves at the OS level. Retry through public DNS.
+    if (!uri.startsWith("mongodb+srv://") || error?.code !== "ECONNREFUSED") throw error;
+    setServers(["8.8.8.8", "1.1.1.1"]);
+    client = createClient();
+    await client.connect();
+  }
   database = client.db(databaseName);
 
   Object.assign(collections, {

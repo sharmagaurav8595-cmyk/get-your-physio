@@ -50,25 +50,19 @@ Use the generated App Password, not the normal Gmail password. Google requires 2
 
 Gmail is convenient for local testing, but a personal mailbox is not the best long-term sender for production OTP traffic.
 
-## Option B: Resend SMTP for production
+## Option B: Resend HTTP API for production (including Render Free)
 
 1. Create a Resend account.
 2. Add a domain you control and complete its DNS verification.
 3. Create a Resend API key.
-4. Copy `.env.example` to `.env`.
-5. Add:
+4. Add the API key and verified-domain sender to the deployment environment:
 
 ```text
-API_PORT=8787
-SMTP_HOST=smtp.resend.com
-SMTP_PORT=465
-SMTP_SECURE=true
-SMTP_USER=resend
-SMTP_PASS=re_your_resend_api_key
-SMTP_FROM=GetYourPhysio.in <otp@your-verified-domain.com>
+RESEND_API_KEY=re_your_resend_api_key
+EMAIL_FROM=GetYourPhysio.in <otp@getyourphysio.in>
 ```
 
-Resend also supports STARTTLS on port 587 with `SMTP_SECURE=false`.
+The backend calls Resend over HTTPS, so it works on Render Free where outbound SMTP ports are blocked. When both Resend and SMTP are configured, Resend takes precedence and SMTP remains available as a local fallback.
 
 ## Start and test
 
@@ -90,7 +84,7 @@ Then open the login page and request an OTP. The health endpoint reports the con
 http://127.0.0.1:8787/api/health
 ```
 
-When SMTP is configured correctly, `emailMode` remains `smtp` and the OTP is delivered to the entered email.
+With Resend configured, `emailMode` is `resend`. With only SMTP configured, it is `smtp`.
 
 For signup verification, use an email that does not already have an account for the selected role. If the backend is not running, no OTP request can be processed. If Gmail rejects a delivery, the backend now removes that failed OTP attempt so the user can retry immediately after the SMTP setting is corrected.
 
@@ -107,5 +101,5 @@ Official references:
 
 - Google App Passwords: https://support.google.com/mail/answer/185833
 - Google SMTP configuration: https://support.google.com/a/answer/176600
-- Resend SMTP: https://resend.com/docs/send-with-smtp
+- Resend Email API: https://resend.com/docs/api-reference/emails/send-email
 - Resend pricing: https://resend.com/pricing

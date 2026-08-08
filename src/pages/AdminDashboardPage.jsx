@@ -38,8 +38,9 @@ import {
   X,
 } from "lucide-react";
 import logo from "../assets/logoNew.jpg";
+import { indiaStatesAndUnionTerritories } from "../data/indiaStates.js";
 import { goTo } from "../features/auth/authStore.js";
-import { adminLogout, createAdminAppointment, downloadAdminPhysioDegreeDocument, getAdminOverview, updateAdminAppointment, updatePhysioVerification } from "../features/auth/api.js";
+import { adminLogout, createAdminAppointment, createAdminPatient, downloadAdminPhysioDegreeDocument, getAdminOverview, updateAdminAppointment, updatePhysioVerification } from "../features/auth/api.js";
 
 const formatDate = (value) => new Intl.DateTimeFormat("en-IN", { dateStyle: "medium", timeStyle: "short" }).format(new Date(value));
 const toDateTimeInput = (value) => {
@@ -54,6 +55,57 @@ function AdminStat({ icon: Icon, label, value, tone, onClick }) {
 
 function EmptyState({ label }) {
   return <Box className="admin-empty"><Search size={30} /><Typography variant="h6">No {label} found</Typography><Typography color="text.secondary">Try clearing or changing the current location filter.</Typography></Box>;
+}
+
+const emptyPatientForm = {
+  name: "", age: "", gender: "", mobile: "", email: "", concern: "", address: "", city: "", state: "", pincode: "",
+};
+
+function AdminPatientDialog({ open, onClose, onCreated }) {
+  const [form, setForm] = useState(emptyPatientForm);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
+  const field = (name) => ({
+    value: form[name],
+    onChange: (event) => setForm((current) => ({ ...current, [name]: event.target.value })),
+  });
+  const close = () => {
+    setError("");
+    onClose();
+  };
+  const submit = async () => {
+    setSaving(true); setError("");
+    try {
+      await createAdminPatient(form);
+      setForm(emptyPatientForm);
+      await onCreated();
+      onClose();
+    } catch (requestError) { setError(requestError.message); }
+    finally { setSaving(false); }
+  };
+  return (
+    <Dialog open={open} onClose={close} maxWidth="sm" fullWidth>
+      <DialogTitle className="profile-dialog-title"><Box><Typography variant="h5">Add a patient</Typography><Typography color="text.secondary" variant="body2">Create a basic Patient record for bookings and care operations.</Typography></Box><IconButton onClick={close}><X /></IconButton></DialogTitle>
+      <DialogContent className="profile-dialog-content">
+        {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
+        <Box className="profile-form-grid">
+          <TextField label="Full name *" {...field("name")} className="field-wide" />
+          <TextField label="Age *" type="number" {...field("age")} slotProps={{ htmlInput: { min: 1, max: 110 } }} />
+          <TextField select label="Gender *" {...field("gender")}><MenuItem value="Female">Female</MenuItem><MenuItem value="Male">Male</MenuItem><MenuItem value="Other">Other</MenuItem><MenuItem value="Prefer not to say">Prefer not to say</MenuItem></TextField>
+          <TextField label="Mobile number *" {...field("mobile")} />
+          <TextField label="Email address *" type="email" {...field("email")} />
+          <TextField label="Care need" placeholder="For example: back pain" {...field("concern")} className="field-wide" />
+          <TextField label="Address" multiline minRows={2} {...field("address")} className="field-wide" />
+          <TextField label="City" {...field("city")} />
+          <TextField select label="State / Union Territory" {...field("state")}>
+            {indiaStatesAndUnionTerritories.map((state) => <MenuItem key={state} value={state}>{state}</MenuItem>)}
+          </TextField>
+          <TextField label="PIN code" {...field("pincode")} slotProps={{ htmlInput: { maxLength: 6 } }} />
+        </Box>
+      </DialogContent>
+      <DialogActions className="profile-dialog-actions"><Button onClick={close}>Cancel</Button><Button variant="contained" disabled={saving} onClick={submit}>{saving ? "Creating..." : "Create patient"}</Button></DialogActions>
+    </Dialog>
+  );
 }
 
 function AdminBookingDialog({ open, patients, physios, onClose, onCreated }) {
@@ -89,7 +141,13 @@ function AdminBookingDialog({ open, patients, physios, onClose, onCreated }) {
             {physios.map((physio) => <MenuItem key={physio.id} value={physio.id}>{physio.name} — {[physio.city, physio.state].filter(Boolean).join(", ") || physio.email}</MenuItem>)}
           </TextField>
           <TextField select label="Consultation type *" {...field("careType")} className="field-wide"><MenuItem value="Home visit">Home consultation</MenuItem><MenuItem value="Online consultation">Online consultation</MenuItem></TextField>
-          <TextField type="datetime-local" label="Booking date and time *" {...field("scheduledAt")} InputLabelProps={{ shrink: true }} className="field-wide" />
+          <TextField
+            type="datetime-local"
+            label="Booking date and time *"
+            {...field("scheduledAt")}
+            slotProps={{ inputLabel: { shrink: true } }}
+            className="field-wide"
+          />
         </Box>
       </DialogContent>
       <DialogActions className="profile-dialog-actions"><Button onClick={onClose}>Cancel</Button><Button variant="contained" disabled={saving || !patients.length || !physios.length} onClick={submit}>{saving ? "Adding..." : "Add and assign booking"}</Button></DialogActions>
@@ -108,6 +166,7 @@ export default function AdminDashboardPage() {
   const [notice, setNotice] = useState("");
   const [updatingId, setUpdatingId] = useState(null);
   const [bookingDialogOpen, setBookingDialogOpen] = useState(false);
+  const [patientDialogOpen, setPatientDialogOpen] = useState(false);
 
   const load = async () => {
     setLoading(true); setError("");
@@ -151,6 +210,7 @@ export default function AdminDashboardPage() {
       } else {
         setNotice("Verification status was already up to date.");
       }
+      localStorage.setItem("gyp-credential-status-updated-at", String(Date.now()));
       await load();
     }
     catch (requestError) { setError(requestError.message); }
@@ -191,7 +251,7 @@ export default function AdminDashboardPage() {
       </Box>
 
       <Container maxWidth="xl" className="admin-content">
-        <Box className="admin-welcome auth-enter"><Box><Typography className="admin-kicker"><ShieldCheck size={16} />Care operations</Typography><Typography component="h1">Admin overview</Typography><Typography color="text.secondary">Create bookings, assign Physios, review registered users, and filter your network by location.</Typography></Box><Stack direction="row" spacing={1}><Button variant="contained" startIcon={<UserPlus size={17} />} onClick={() => setBookingDialogOpen(true)}>Add booking</Button><Button variant="outlined" startIcon={<RefreshCw size={17} />} onClick={load}>Refresh data</Button></Stack></Box>
+        <Box className="admin-welcome auth-enter"><Box><Typography className="admin-kicker"><ShieldCheck size={16} />Care operations</Typography><Typography component="h1">Admin overview</Typography><Typography color="text.secondary">Create bookings, assign Physios, review registered users, and filter your network by location.</Typography></Box><Stack direction="row" spacing={1}><Button variant="contained" startIcon={<UserPlus size={17} />} onClick={() => setPatientDialogOpen(true)}>Add patient</Button><Button variant="outlined" startIcon={<CalendarCheck2 size={17} />} onClick={() => setBookingDialogOpen(true)}>Add booking</Button><Button variant="outlined" startIcon={<RefreshCw size={17} />} onClick={load}>Refresh data</Button></Stack></Box>
         {error && <Alert severity="error" sx={{ mt: 2 }}>{error}</Alert>}
         {notice && <Alert severity="success" sx={{ mt: 2 }} onClose={() => setNotice("")}>{notice}</Alert>}
 
@@ -224,6 +284,15 @@ export default function AdminDashboardPage() {
           {!loading && activeTab === "physios" && (physios.length ? <Box className="admin-table-wrap"><table className="admin-table"><thead><tr><th>Physio</th><th>Contact</th><th>Qualification</th><th>Location</th><th>Registration & document</th><th>Verification status</th></tr></thead><tbody>{physios.map((physio) => <tr key={physio.id}><td><Box className="admin-person"><Avatar className="physio-avatar">{initials(physio.name)}</Avatar><span><strong>{physio.name}</strong><small>{physio.booking_count} assigned bookings</small></span></Box></td><td><strong>{physio.mobile}</strong><small>{physio.email}</small></td><td><strong>{physio.degree || physio.qualification}</strong><small>{physio.qualification}</small></td><td><strong>{physio.city || "—"}</strong><small>{[physio.state, physio.pincode].filter(Boolean).join(" · ")}</small></td><td><strong>{physio.registration_number}</strong>{physio.has_degree_document ? <Button size="small" startIcon={<Download size={14} />} disabled={updatingId === `document-${physio.id}`} onClick={() => downloadDegreeDocument(physio)}>{updatingId === `document-${physio.id}` ? "Preparing..." : "Degree PDF"}</Button> : <small>No document</small>}</td><td><TextField select size="small" disabled={updatingId === `physio-${physio.id}`} value={physio.credential_status} onChange={(event) => changeVerification(physio.id, event.target.value)} className="verification-status-select"><MenuItem value="pending">Pending</MenuItem><MenuItem value="verified">Verified</MenuItem><MenuItem value="rejected">Rejected</MenuItem></TextField></td></tr>)}</tbody></table></Box> : <EmptyState label="Physios" />)}
         </Paper>
       </Container>
+      <AdminPatientDialog
+        open={patientDialogOpen}
+        onClose={() => setPatientDialogOpen(false)}
+        onCreated={async () => {
+          await load();
+          setActiveTab("patients");
+          setNotice("Patient created successfully and is ready for booking.");
+        }}
+      />
       <AdminBookingDialog open={bookingDialogOpen} patients={patientOptions} physios={physioOptions} onClose={() => setBookingDialogOpen(false)} onCreated={load} />
     </Box>
   );
