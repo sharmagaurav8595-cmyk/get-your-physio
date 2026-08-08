@@ -10,7 +10,7 @@ import {
   getDegreeBucket,
   toObjectId,
 } from "./database.mjs";
-import { sendCredentialStatusEmail, sendOtpEmail } from "./mailer.mjs";
+import { getEmailMode, sendCredentialStatusEmail, sendOtpEmail } from "./mailer.mjs";
 
 const app = express();
 const port = Number(process.env.PORT || process.env.API_PORT || 8787);
@@ -26,7 +26,6 @@ const now = () => new Date();
 const futureDate = (milliseconds) => new Date(Date.now() + milliseconds);
 const idString = (value) => value ? String(value) : null;
 const validAccountRole = (role) => role === "physio" || role === "patient";
-const validLoginRole = (role) => validAccountRole(role) || role === "admin";
 
 function apiError(status, message, code = "REQUEST_FAILED") {
   const error = new Error(message);
@@ -222,8 +221,39 @@ app.get("/api/health", (_req, res) => {
     ok: true,
     service: "getyourphysio-api",
     database: "mongodb",
-    emailMode: process.env.SMTP_HOST ? "smtp" : "development",
+    emailMode: getEmailMode(),
   });
+});
+
+// OTP bypass: direct email login is enabled for the current demo.
+// The OTP request/verification routes below are intentionally retained so the
+// verification flow can be restored without recreating it.
+app.post("/api/auth/login", async (req, res, next) => {
+  try {
+    const email = normalizeEmail(req.body.email);
+    const role = req.body.role;
+    if (!/^\S+@\S+\.\S+$/.test(email)) throw apiError(400, "Enter a valid email address.");
+    if (role !== "physio" && role !== "admin") throw apiError(400, "Only Physio or Admin login is available.");
+
+    if (role === "admin") {
+      const admin = await collections.admins.findOne({ email, isActive: true });
+      if (!admin) throw apiError(404, "Admin account not found.", "ACCOUNT_NOT_FOUND");
+      const token = await issueAdminSession(admin._id);
+      return res.json({
+        token,
+        user: { id: idString(admin._id), email: admin.email, name: admin.name, role: "admin" },
+      });
+    }
+
+    const user = await collections.users.findOne({ email, role });
+    if (!user) throw apiError(404, "No account was found. Please sign up first.", "ACCOUNT_NOT_FOUND");
+    const { profile } = await findFullUser(user._id);
+    if (!profile) throw apiError(404, "Account profile not found.", "ACCOUNT_NOT_FOUND");
+    const token = await issueSession(user._id);
+    res.json({ token, user: serializeProfile(user, profile) });
+  } catch (error) {
+    next(error);
+  }
 });
 
 app.post("/api/auth/request-otp", async (req, res, next) => {
@@ -231,7 +261,7 @@ app.post("/api/auth/request-otp", async (req, res, next) => {
     const email = normalizeEmail(req.body.email);
     const { role, purpose } = req.body;
     if (!/^\S+@\S+\.\S+$/.test(email)) throw apiError(400, "Enter a valid email address.");
-    if (!validLoginRole(role)) throw apiError(400, "Choose a valid account type.");
+    if (role !== "physio" && role !== "admin") throw apiError(400, "Only Physio or Admin login is available.");
     if (purpose !== "login" && purpose !== "registration") throw apiError(400, "Invalid OTP purpose.");
     if (role === "admin" && purpose !== "login") {
       throw apiError(403, "Admin accounts can only be created from the server command.");
@@ -291,6 +321,7 @@ app.post("/api/auth/verify-otp", async (req, res, next) => {
   try {
     const email = normalizeEmail(req.body.email);
     const { role, purpose, otp } = req.body;
+    if (role !== "physio" && role !== "admin") throw apiError(400, "Only Physio or Admin login is available.");
     const challenge = await collections.otpChallenges.findOne(
       { email, role, purpose, consumedAt: null },
       { sort: { createdAt: -1 } },
@@ -346,7 +377,7 @@ app.post("/api/auth/register", degreeUpload.single("degreeFile"), async (req, re
   let degreeFileId = null;
   try {
     const role = req.body.role;
-    const verificationToken = req.body.verificationToken;
+    // OTP bypass: registration no longer requires a verification token.
     let profile;
     try {
       profile = JSON.parse(req.body.profile || "{}");
@@ -355,15 +386,13 @@ app.post("/api/auth/register", degreeUpload.single("degreeFile"), async (req, re
     }
 
     const email = normalizeEmail(profile.email);
-    if (!validAccountRole(role)) throw apiError(400, "Invalid account type.");
+    if (role !== "physio") throw apiError(400, "Only Physio registration is available.");
     const commonRequired = [profile.name, profile.age, profile.gender, profile.mobile, email, profile.address, profile.city];
     if (commonRequired.some((value) => !String(value || "").trim())) {
       throw apiError(400, "Complete all required personal and address details.");
     }
+    if (!/^\S+@\S+\.\S+$/.test(email)) throw apiError(400, "Enter a valid email address.");
     if (!/^\+?[0-9\s-]{7,18}$/.test(profile.mobile)) throw apiError(400, "Enter a valid mobile number.");
-    if (role === "patient" && !String(profile.concern || "").trim()) {
-      throw apiError(400, "Tell us what you would like help with.");
-    }
     if (role === "physio" && (
       !profile.state
       || !profile.pincode
@@ -378,14 +407,6 @@ app.post("/api/auth/register", degreeUpload.single("degreeFile"), async (req, re
       throw apiError(400, "The uploaded degree document is not a valid PDF.");
     }
 
-    const proof = await collections.verificationTokens.findOne({
-      email,
-      role,
-      tokenHash: hash(String(verificationToken || "")),
-      consumedAt: null,
-      expiresAt: { $gt: now() },
-    });
-    if (!proof) throw apiError(400, "Email verification is missing or expired.", "EMAIL_NOT_VERIFIED");
     if (await collections.users.findOne({ email, role })) {
       throw apiError(409, "This account already exists.");
     }
@@ -394,7 +415,7 @@ app.post("/api/auth/register", degreeUpload.single("degreeFile"), async (req, re
     const userResult = await collections.users.insertOne({
       email,
       role,
-      emailVerifiedAt: createdAt,
+      emailVerifiedAt: null,
       createdAt,
     });
     userId = userResult.insertedId;
@@ -424,8 +445,6 @@ app.post("/api/auth/register", degreeUpload.single("degreeFile"), async (req, re
       preferredCare: profile.preferredCare || "",
       updatedAt: createdAt,
     });
-    await collections.verificationTokens.updateOne({ _id: proof._id }, { $set: { consumedAt: createdAt } });
-
     const user = await collections.users.findOne({ _id: userId });
     const storedProfile = await collections.profiles.findOne({ userId });
     const token = await issueSession(userId);
@@ -596,6 +615,74 @@ app.get("/api/admin/overview", requireAdmin, async (req, res, next) => {
       physioOptions,
     });
   } catch (error) {
+    next(error);
+  }
+});
+
+app.post("/api/admin/patients", requireAdmin, async (req, res, next) => {
+  let userId = null;
+  try {
+    const email = normalizeEmail(req.body.email);
+    const patient = {
+      name: String(req.body.name || "").trim(),
+      age: String(req.body.age || "").trim(),
+      gender: String(req.body.gender || "").trim(),
+      mobile: String(req.body.mobile || "").trim(),
+      address: String(req.body.address || "").trim(),
+      city: String(req.body.city || "").trim(),
+      state: String(req.body.state || "").trim(),
+      pincode: String(req.body.pincode || "").trim(),
+      concern: String(req.body.concern || "").trim(),
+    };
+    if ([patient.name, patient.age, patient.gender, patient.mobile, email].some((value) => !value)) {
+      throw apiError(400, "Enter the Patient's name, age, gender, mobile number and email.");
+    }
+    if (!/^\S+@\S+\.\S+$/.test(email)) throw apiError(400, "Enter a valid Patient email address.");
+    if (!/^\+?[0-9\s-]{7,18}$/.test(patient.mobile)) throw apiError(400, "Enter a valid Patient mobile number.");
+    const patientAge = Number(patient.age);
+    if (!Number.isInteger(patientAge) || patientAge < 1 || patientAge > 110) {
+      throw apiError(400, "Enter a valid Patient age between 1 and 110.");
+    }
+    if (patient.pincode && !/^\d{6}$/.test(patient.pincode)) throw apiError(400, "Enter a valid 6-digit PIN code.");
+    if (await collections.users.findOne({ email, role: "patient" })) {
+      throw apiError(409, "A Patient with this email already exists.", "ACCOUNT_EXISTS");
+    }
+
+    const createdAt = now();
+    const userResult = await collections.users.insertOne({
+      email,
+      role: "patient",
+      emailVerifiedAt: null,
+      createdByAdminId: req.admin.adminId,
+      createdAt,
+    });
+    userId = userResult.insertedId;
+    await collections.profiles.insertOne({
+      userId,
+      ...patient,
+      landmark: "",
+      latitude: "",
+      longitude: "",
+      qualification: "",
+      degree: "",
+      registrationNumber: "",
+      degreeFileId: null,
+      degreeFileName: "",
+      credentialStatus: "not_applicable",
+      preferredCare: "",
+      updatedAt: createdAt,
+    });
+
+    const user = await collections.users.findOne({ _id: userId });
+    const profile = await collections.profiles.findOne({ userId });
+    res.status(201).json({ patient: serializeProfile(user, profile) });
+  } catch (error) {
+    if (userId) {
+      await Promise.allSettled([
+        collections.profiles.deleteOne({ userId }),
+        collections.users.deleteOne({ _id: userId }),
+      ]);
+    }
     next(error);
   }
 });

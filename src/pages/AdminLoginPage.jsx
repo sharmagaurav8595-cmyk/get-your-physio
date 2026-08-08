@@ -1,33 +1,24 @@
 import { useState } from "react";
 import { Alert, Box, Button, Chip, Container, InputAdornment, Paper, Stack, TextField, Typography } from "@mui/material";
-import { ArrowRight, KeyRound, LockKeyhole, Mail, ShieldCheck, Sparkles } from "lucide-react";
+import { ArrowRight, LockKeyhole, Mail, ShieldCheck, Sparkles } from "lucide-react";
 import AuthHeader from "../features/auth/AuthHeader.jsx";
-import OtpDialog from "../features/auth/OtpDialog.jsx";
 import { goTo } from "../features/auth/authStore.js";
-import { requestOtp, setAdminSessionToken, verifyOtp } from "../features/auth/api.js";
+import { loginAccount, setAdminSessionToken } from "../features/auth/api.js";
 
 export default function AdminLoginPage() {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [otpOpen, setOtpOpen] = useState(false);
-  const [developmentOtp, setDevelopmentOtp] = useState("");
 
-  const sendOtp = async () => {
+  const login = async () => {
     if (!/^\S+@\S+\.\S+$/.test(email)) return setError("Enter the Admin email address.");
     setLoading(true); setError("");
     try {
-      const result = await requestOtp(email, "admin", "login");
-      setDevelopmentOtp(result.developmentOtp || "");
-      setOtpOpen(true);
+      const result = await loginAccount(email, "admin");
+      setAdminSessionToken(result.token);
+      goTo("/admin");
     } catch (requestError) { setError(requestError.message); }
     finally { setLoading(false); }
-  };
-
-  const verify = async (otp) => {
-    const result = await verifyOtp(email, "admin", "login", otp);
-    setAdminSessionToken(result.token);
-    goTo("/admin");
   };
 
   return (
@@ -40,7 +31,7 @@ export default function AdminLoginPage() {
           <Typography color="text.secondary">Review appointment requests, find patients by location, and manage the growing Physio network from one protected workspace.</Typography>
           <Stack spacing={1.5} className="admin-security-list">
             <span><ShieldCheck size={19} />Separate Admin-only access</span>
-            <span><KeyRound size={19} />Email OTP authentication</span>
+            <span><LockKeyhole size={19} />Direct email sign-in</span>
             <span><LockKeyhole size={19} />12-hour expiring Admin session</span>
           </Stack>
         </Box>
@@ -50,13 +41,12 @@ export default function AdminLoginPage() {
           <Typography color="text.secondary" mt={1}>Use an email registered through the server Admin command.</Typography>
           {error && <Alert severity="error" sx={{ mt: 2 }}>{error}</Alert>}
           <Stack spacing={2} mt={3}>
-            <TextField label="Admin email" value={email} onChange={(event) => setEmail(event.target.value)} onKeyDown={(event) => event.key === "Enter" && sendOtp()} InputProps={{ startAdornment: <InputAdornment position="start"><Mail size={18} /></InputAdornment> }} />
-            <Button disabled={loading} variant="contained" size="large" endIcon={<ArrowRight size={18} />} onClick={sendOtp}>{loading ? "Sending OTP..." : "Continue securely"}</Button>
+            <TextField label="Admin email" value={email} onChange={(event) => setEmail(event.target.value)} onKeyDown={(event) => event.key === "Enter" && login()} InputProps={{ startAdornment: <InputAdornment position="start"><Mail size={18} /></InputAdornment> }} />
+            <Button disabled={loading} variant="contained" size="large" endIcon={<ArrowRight size={18} />} onClick={login}>{loading ? "Signing in..." : "Login"}</Button>
           </Stack>
-          <Button color="inherit" fullWidth sx={{ mt: 2 }} onClick={() => goTo("/login")}>Patient or Physio login</Button>
+          <Button color="inherit" fullWidth sx={{ mt: 2 }} onClick={() => goTo("/login")}>Physio login</Button>
         </Paper>
       </Container>
-      <OtpDialog open={otpOpen} target={email} developmentOtp={developmentOtp} onClose={() => setOtpOpen(false)} onVerified={verify} onResend={async () => { const result = await requestOtp(email, "admin", "login"); setDevelopmentOtp(result.developmentOtp || ""); }} />
     </Box>
   );
 }

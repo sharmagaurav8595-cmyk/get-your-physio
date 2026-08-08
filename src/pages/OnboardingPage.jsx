@@ -25,24 +25,18 @@ import {
   MapPin,
   ShieldCheck,
   Smartphone,
-  Sparkles,
   UploadCloud,
   UserRound,
 } from "lucide-react";
 import AuthHeader from "../features/auth/AuthHeader.jsx";
-import OtpDialog from "../features/auth/OtpDialog.jsx";
 import { goTo } from "../features/auth/authStore.js";
-import { registerAccount, requestOtp, verifyOtp } from "../features/auth/api.js";
+import { registerAccount } from "../features/auth/api.js";
+import { indiaStatesAndUnionTerritories } from "../data/indiaStates.js";
 
 const physioSteps = [
   { label: "Personal info", caption: "Tell us about you", icon: UserRound },
   { label: "Address", caption: "Where you practise", icon: MapPin },
   { label: "Qualification", caption: "Professional details", icon: GraduationCap },
-];
-
-const patientSteps = [
-  { label: "Basic info", caption: "Let's know you", icon: UserRound },
-  { label: "Care & location", caption: "Personalise your care", icon: MapPin },
 ];
 
 const MAX_DEGREE_FILE_SIZE = 3 * 1024 * 1024;
@@ -77,15 +71,10 @@ function FormField({ name, form, setForm, ...props }) {
   );
 }
 
-export default function OnboardingPage({ role }) {
-  const isPhysio = role === "physio";
-  const steps = isPhysio ? physioSteps : patientSteps;
+export default function OnboardingPage() {
+  const steps = physioSteps;
   const [activeStep, setActiveStep] = useState(0);
   const [form, setForm] = useState(initialForm);
-  const [verified, setVerified] = useState({ email: false });
-  const [otpType, setOtpType] = useState(null);
-  const [developmentOtp, setDevelopmentOtp] = useState("");
-  const [emailVerificationToken, setEmailVerificationToken] = useState("");
   const [degreeDocument, setDegreeDocument] = useState(null);
   const [location, setLocation] = useState(null);
   const [locationStatus, setLocationStatus] = useState("");
@@ -96,28 +85,10 @@ export default function OnboardingPage({ role }) {
   const CurrentIcon = currentStep.icon;
 
   const title = useMemo(() => {
-    if (activeStep === 0) return isPhysio ? "Build your professional profile" : "Tell us a little about yourself";
-    if (activeStep === 1) return isPhysio ? "Where can patients find you?" : "Help us personalise your care";
+    if (activeStep === 0) return "Build your professional profile";
+    if (activeStep === 1) return "Where can patients find you?";
     return "Add your professional credentials";
-  }, [activeStep, isPhysio]);
-
-  const openOtp = async () => {
-    if (!form.email.trim()) {
-      setError("Please enter your email first.");
-      return;
-    }
-    setError("");
-    setLoading(true);
-    try {
-      const result = await requestOtp(form.email, role, "registration");
-      setDevelopmentOtp(result.developmentOtp || "");
-      setOtpType("email");
-    } catch (requestError) {
-      setError(requestError.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+  }, [activeStep]);
 
   const detectLocation = () => {
     setLocationStatus("Locating you...");
@@ -138,15 +109,15 @@ export default function OnboardingPage({ role }) {
   const validateStep = () => {
     let required = [];
     if (activeStep === 0) required = ["name", "age", "gender", "mobile", "email"];
-    if (activeStep === 1) required = isPhysio ? ["address", "city", "state", "pincode"] : ["concern", "address", "city"];
-    if (isPhysio && activeStep === 2) required = ["qualification", "degree", "registrationNumber", "degreeFile"];
+    if (activeStep === 1) required = ["address", "city", "state", "pincode"];
+    if (activeStep === 2) required = ["qualification", "degree", "registrationNumber", "degreeFile"];
     const missing = required.find((field) => !String(form[field] || "").trim());
     if (missing) {
       setError("Please complete all required details before continuing.");
       return false;
     }
-    if (activeStep === 0 && !verified.email) {
-      setError("Please verify your email before continuing.");
+    if (activeStep === 0 && !/^\S+@\S+\.\S+$/.test(form.email)) {
+      setError("Please enter a valid email address.");
       return false;
     }
     setError("");
@@ -162,8 +133,8 @@ export default function OnboardingPage({ role }) {
     }
     setLoading(true);
     try {
-      await registerAccount(role, { ...form, location }, emailVerificationToken, degreeDocument);
-      goTo(`/dashboard/${role}`);
+      await registerAccount("physio", { ...form, location }, degreeDocument);
+      goTo("/dashboard/physio");
     } catch (requestError) {
       setError(requestError.message);
     } finally {
@@ -177,23 +148,16 @@ export default function OnboardingPage({ role }) {
       <Container maxWidth="xl" className="onboarding-layout">
         <Box className="onboarding-aside auth-enter">
           <Chip
-            icon={isPhysio ? <BriefcaseMedical size={16} /> : <Sparkles size={16} />}
-            label={isPhysio ? "Join our trusted care network" : "Your recovery starts here"}
+            icon={<BriefcaseMedical size={16} />}
+            label="Join our trusted care network"
             className="auth-eyebrow"
           />
-          <Typography component="h1">
-            {isPhysio ? "Create a profile patients can trust." : "Care shaped around your life."}
-          </Typography>
+          <Typography component="h1">Create a profile patients can trust.</Typography>
           <Typography color="text.secondary">
-            {isPhysio
-              ? "Complete your verified profile and bring your expertise closer to people who need it."
-              : "Share only what helps us connect you with the right Physiotherapy support."}
+            Complete your professional profile and bring your expertise closer to people who need it.
           </Typography>
           <Box className="onboarding-benefits">
-            {(isPhysio
-              ? ["Verified professional identity", "Simple patient and visit management", "A profile you can update anytime"]
-              : ["Faster appointment requests", "Your visits and recovery in one view", "Location-aware home care support"]
-            ).map((benefit) => <span key={benefit}><Check size={17} />{benefit}</span>)}
+            {["Verified professional identity", "Simple patient and visit management", "A profile you can update anytime"].map((benefit) => <span key={benefit}><Check size={17} />{benefit}</span>)}
           </Box>
           <Paper elevation={0} className="privacy-card">
             <ShieldCheck size={24} />
@@ -238,23 +202,12 @@ export default function OnboardingPage({ role }) {
               </Box>
               <Box className="verification-field field-wide">
                 <FormField name="email" form={form} setForm={setForm} label="Email address *" InputProps={{ startAdornment: <Mail size={18} className="input-icon" /> }} />
-                <Button disabled={loading} variant={verified.email ? "text" : "outlined"} color={verified.email ? "success" : "primary"} startIcon={verified.email ? <BadgeCheck size={17} /> : null} onClick={openOtp}>
-                  {verified.email ? "Verified" : "Verify email"}
-                </Button>
               </Box>
             </Box>
           )}
 
           {activeStep === 1 && (
             <Box className="onboarding-form-grid">
-              {!isPhysio && (
-                <>
-                  <FormField name="concern" form={form} setForm={setForm} label="What would you like help with? *" placeholder="For example: back pain or sports recovery" className="field-wide" />
-                  <FormField name="preferredCare" form={form} setForm={setForm} label="Preferred care" select className="field-wide">
-                    <MenuItem value="Home visit">Home consultation</MenuItem><MenuItem value="Online consultation">Online consultation</MenuItem>
-                  </FormField>
-                </>
-              )}
               <Box className="map-picker field-wide">
                 <Box className="map-grid-lines" />
                 <span className="map-pin-pulse"><MapPin size={24} /></span>
@@ -265,15 +218,17 @@ export default function OnboardingPage({ role }) {
                 <Button variant="contained" startIcon={<LocateFixed size={17} />} onClick={detectLocation}>Use current location</Button>
               </Box>
               {locationStatus && <Alert severity={location ? "success" : "info"} className="field-wide">{locationStatus}</Alert>}
-              <FormField name="address" form={form} setForm={setForm} label={`${isPhysio ? "Clinic / practice address" : "Address"} *`} multiline minRows={2} className="field-wide" />
+              <FormField name="address" form={form} setForm={setForm} label="Clinic / practice address *" multiline minRows={2} className="field-wide" />
               <FormField name="city" form={form} setForm={setForm} label="City *" />
-              <FormField name="state" form={form} setForm={setForm} label={isPhysio ? "State *" : "State"} />
-              <FormField name="pincode" form={form} setForm={setForm} label={isPhysio ? "PIN code *" : "PIN code"} inputProps={{ maxLength: 6 }} />
+              <FormField name="state" form={form} setForm={setForm} label="State *" select>
+                {indiaStatesAndUnionTerritories.map((state) => <MenuItem key={state} value={state}>{state}</MenuItem>)}
+              </FormField>
+              <FormField name="pincode" form={form} setForm={setForm} label="PIN code *" inputProps={{ maxLength: 6 }} />
               <FormField name="landmark" form={form} setForm={setForm} label="Nearby landmark" />
             </Box>
           )}
 
-          {isPhysio && activeStep === 2 && (
+          {activeStep === 2 && (
             <Box className="onboarding-form-grid">
               <FormField name="qualification" form={form} setForm={setForm} label="Highest qualification *" select className="field-wide">
                 <MenuItem value="Bachelor of Physiotherapy">Bachelor of Physiotherapy (BPT)</MenuItem>
@@ -326,23 +281,6 @@ export default function OnboardingPage({ role }) {
           </Stack>
         </Paper>
       </Container>
-      <OtpDialog
-        open={Boolean(otpType)}
-        type={otpType}
-        target={otpType ? form[otpType] : ""}
-        developmentOtp={developmentOtp}
-        onClose={() => setOtpType(null)}
-        onVerified={async (otp) => {
-          const result = await verifyOtp(form.email, role, "registration", otp);
-          setEmailVerificationToken(result.verificationToken);
-          setVerified({ email: true });
-          setOtpType(null);
-        }}
-        onResend={async () => {
-          const result = await requestOtp(form.email, role, "registration");
-          setDevelopmentOtp(result.developmentOtp || "");
-        }}
-      />
     </Box>
   );
 }

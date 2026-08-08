@@ -141,6 +141,11 @@ function EmptyDashboardList({ role, onAction }) {
 }
 
 const formatDate = (value) => new Intl.DateTimeFormat("en-IN", { dateStyle: "medium", timeStyle: "short" }).format(new Date(value));
+const credentialBadge = {
+  verified: { label: "Credentials verified", color: "success" },
+  rejected: { label: "Credentials rejected", color: "error" },
+  pending: { label: "Verification pending", color: "warning" },
+};
 
 export default function DashboardPage({ role }) {
   const isPhysio = role === "physio";
@@ -164,7 +169,24 @@ export default function DashboardPage({ role }) {
       setPageError(error.message);
     } finally { setLoading(false); }
   };
-  useEffect(() => { load(); }, [role]);
+  useEffect(() => {
+    load();
+    const refresh = () => load();
+    const refreshWhenVisible = () => document.visibilityState === "visible" && load();
+    const refreshFromAdminTab = (event) => {
+      if (event.key === "gyp-credential-status-updated-at") load();
+    };
+    const refreshTimer = window.setInterval(load, 15_000);
+    window.addEventListener("focus", refresh);
+    window.addEventListener("storage", refreshFromAdminTab);
+    document.addEventListener("visibilitychange", refreshWhenVisible);
+    return () => {
+      window.clearInterval(refreshTimer);
+      window.removeEventListener("focus", refresh);
+      window.removeEventListener("storage", refreshFromAdminTab);
+      document.removeEventListener("visibilitychange", refreshWhenVisible);
+    };
+  }, [role]);
 
   const firstName = profile.name?.replace(/^Dr\.\s*/i, "").split(" ")[0] || (isPhysio ? "Doctor" : "there");
   const initials = profile.name?.split(" ").filter((word) => !word.includes(".")).slice(0, 2).map((word) => word[0]).join("") || "GY";
@@ -176,6 +198,7 @@ export default function DashboardPage({ role }) {
   const stats = dashboard.stats || {};
   const visits = dashboard.visits || [];
   const appointments = dashboard.appointments || [];
+  const credential = credentialBadge[profile.credentialStatus] || credentialBadge.pending;
 
   return (
     <Box className="dashboard-shell">
@@ -206,7 +229,7 @@ export default function DashboardPage({ role }) {
             </Paper>
 
             <Stack spacing={2.5}>
-              <Paper elevation={0} className="dashboard-panel profile-summary"><Box className="profile-cover"><span /></Box><Avatar className="profile-avatar">{initials}</Avatar><IconButton className="profile-edit" onClick={() => setEditOpen(true)}><Edit3 size={17} /></IconButton><Typography variant="h5">{profile.name}</Typography><Typography color="text.secondary">{isPhysio ? profile.degree || profile.qualification : profile.concern}</Typography>{isPhysio && <Chip icon={<BadgeCheck size={15} />} label={profile.credentialStatus === "verified" ? "Credentials verified" : "Verification pending"} color={profile.credentialStatus === "verified" ? "success" : "warning"} size="small" />}<Divider /><span className="profile-detail"><MapPin size={16} />{profile.address || "Add your location"}</span><span className="profile-detail"><CircleUserRound size={16} />{isPhysio ? profile.registrationNumber : "Patient profile"}</span><Button fullWidth variant="outlined" startIcon={<Edit3 size={16} />} onClick={() => setEditOpen(true)}>Edit profile</Button></Paper>
+              <Paper elevation={0} className="dashboard-panel profile-summary"><Box className="profile-cover"><span /></Box><Avatar className="profile-avatar">{initials}</Avatar><IconButton className="profile-edit" onClick={() => setEditOpen(true)}><Edit3 size={17} /></IconButton><Typography variant="h5">{profile.name}</Typography><Typography color="text.secondary">{isPhysio ? profile.degree || profile.qualification : profile.concern}</Typography>{isPhysio && <Chip icon={<BadgeCheck size={15} />} label={credential.label} color={credential.color} size="small" />}<Divider /><span className="profile-detail"><MapPin size={16} />{profile.address || "Add your location"}</span><span className="profile-detail"><CircleUserRound size={16} />{isPhysio ? profile.registrationNumber : "Patient profile"}</span><Button fullWidth variant="outlined" startIcon={<Edit3 size={16} />} onClick={() => setEditOpen(true)}>Edit profile</Button></Paper>
               <Paper elevation={0} className="dashboard-panel progress-card"><Box className="panel-heading compact"><Box><Typography variant="h6">{isPhysio ? "Profile strength" : "Recovery activity"}</Typography><Typography color="text.secondary" variant="body2">{isPhysio ? "Your professional information" : "Completed care sessions"}</Typography></Box><strong>{isPhysio ? "90%" : `${stats.recoveryProgress || 0}%`}</strong></Box><LinearProgress variant="determinate" value={isPhysio ? 90 : stats.recoveryProgress || 0} /><Typography variant="caption">{isPhysio ? "Credentials will be reviewed by the care team." : "Progress grows as sessions are completed."}</Typography></Paper>
             </Stack>
           </Box>
