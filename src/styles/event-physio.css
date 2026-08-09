@@ -1,0 +1,156 @@
+.event-coverage-page { background: #071e2d; }
+
+.event-physio-section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(82px, 9vw, 138px) 0 92px;
+  color: #f7fbfd;
+  background: linear-gradient(115deg, rgba(15,197,176,.1), transparent 36%), radial-gradient(circle at 88% 12%, rgba(74,105,216,.22), transparent 30%), #071e2d;
+}
+
+.event-physio-section::before {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  background-image: linear-gradient(rgba(255,255,255,.034) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.034) 1px, transparent 1px);
+  background-size: 54px 54px;
+  mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent);
+  content: "";
+}
+
+.event-physio-section::after {
+  position: absolute;
+  z-index: -1;
+  width: 420px;
+  height: 420px;
+  top: 18%;
+  left: -260px;
+  border-radius: 50%;
+  background: rgba(84,229,207,.12);
+  filter: blur(80px);
+  animation: event-glow-drift 9s ease-in-out infinite alternate;
+  content: "";
+}
+
+.event-physio-orbit { position: absolute; z-index: -1; border: 1px solid rgba(69,229,205,.17); border-radius: 50%; animation: event-orbit-float 8s ease-in-out infinite; }
+.event-physio-orbit-one { width: 440px; height: 440px; top: -270px; right: 12%; }
+.event-physio-orbit-two { width: 620px; height: 620px; bottom: -490px; left: -170px; animation-delay: -3s; }
+.event-physio-container { position: relative; }
+
+.event-physio-heading { display: grid; grid-template-columns: minmax(0,1.16fr) minmax(320px,.72fr); align-items: end; gap: clamp(40px,8vw,118px); }
+.event-physio-kicker { display: inline-flex; align-items: center; gap: 9px; color: #54e5cf; font-size: .77rem; font-weight: 900; letter-spacing: .16em; text-transform: uppercase; }
+.event-physio-kicker svg { animation: event-icon-pulse 2.2s ease-in-out infinite; }
+.event-physio-heading h1 { max-width: 900px; margin: 20px 0 0; color: #fff; font-size: clamp(3.1rem,6.25vw,6.65rem); font-weight: 800; line-height: .91; letter-spacing: -.065em; }
+.event-physio-heading h1 em { color: #bafc48; font-style: normal; background: linear-gradient(90deg,#bafc48,#54e5cf,#bafc48); background-size: 200% auto; background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: event-text-shine 5s linear infinite; }
+.event-physio-intro { padding-bottom: 8px; }
+.event-physio-intro > .MuiTypography-root { color: rgba(236,247,251,.7); font-size: 1.04rem; line-height: 1.8; }
+.event-physio-intro .MuiButton-root, .event-physio-cta .MuiButton-root { min-height: 52px; margin-top: 27px; padding-inline: 23px; border-radius: 5px; color: #061c29; background: #bafc48; font-weight: 900; transition: transform .25s ease, box-shadow .25s ease, background .25s ease; }
+.event-physio-intro .MuiButton-root:hover, .event-physio-cta .MuiButton-root:hover { color: #061c29; background: #d0ff7c; box-shadow: 0 15px 38px rgba(186,252,72,.18); transform: translateY(-3px); }
+
+.event-sports-marquee { margin: clamp(52px,7vw,84px) calc(50% - 50vw) 0; overflow: hidden; border-block: 1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.035); mask-image: linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent); }
+.event-sports-track { display: flex; gap: 34px; width: max-content; padding: 15px 0; animation: event-sport-scroll 34s linear infinite; }
+.event-sports-track span { display: inline-flex; align-items: center; gap: 13px; color: rgba(255,255,255,.72); font-size: .76rem; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
+.event-sports-track i { width: 7px; height: 7px; border: 2px solid #54e5cf; border-radius: 50%; box-shadow: 0 0 0 4px rgba(84,229,207,.08); }
+
+.event-physio-coverage { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 1px; margin-top: clamp(46px,6vw,72px); overflow: hidden; border: 1px solid rgba(255,255,255,.12); border-radius: 18px; background: rgba(255,255,255,.12); }
+.event-coverage-card { min-height: 294px; padding: clamp(24px,3vw,38px); background: rgba(8,34,49,.95); transition: background .3s ease, transform .3s ease; }
+.event-coverage-card:hover { z-index: 1; background: #0d3043; transform: translateY(-7px); }
+.event-coverage-card__top { display: flex; align-items: center; justify-content: space-between; color: #54e5cf; }
+.event-coverage-card__top span { color: rgba(255,255,255,.38); font-family: monospace; font-size: .76rem; letter-spacing: .12em; }
+.event-coverage-card h2 { margin: 58px 0 12px; color: #fff; font-size: 1.25rem; font-weight: 800; letter-spacing: -.025em; }
+.event-coverage-card > .MuiTypography-root:last-child { color: rgba(236,247,251,.6); font-size: .9rem; line-height: 1.68; }
+
+.event-service-standard { display: grid; grid-template-columns: auto minmax(260px,.85fr) minmax(360px,1.15fr); align-items: center; gap: 30px; margin-top: 22px; padding: 30px 34px; border-radius: 18px; color: #071e2d; background: #bafc48; }
+.event-service-standard__icon { display: grid; place-items: center; width: 66px; height: 66px; border-radius: 50%; background: rgba(7,30,45,.09); }
+.event-service-standard > div:nth-child(2) > span { font-size: .69rem; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; }
+.event-service-standard h2 { margin-top: 5px; color: #071e2d; font-size: clamp(1.45rem,2.2vw,2.2rem); line-height: 1.08; }
+.event-service-standard__points { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
+.event-service-standard__points span { display: flex; align-items: center; gap: 7px; padding: 12px; border-left: 1px solid rgba(7,30,45,.18); font-size: .76rem; font-weight: 850; line-height: 1.35; }
+
+.event-partner-panel { display: grid; grid-template-columns: minmax(240px,.55fr) minmax(0,1.45fr); align-items: center; gap: 48px; margin-top: 22px; padding: 34px 0 34px 34px; border: 1px solid rgba(255,255,255,.11); border-radius: 18px; background: rgba(255,255,255,.045); }
+.event-partner-copy > span, .event-physio-cta > div > span { color: #54e5cf; font-size: .7rem; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; }
+.event-partner-copy h2 { margin: 8px 0 6px; color: #fff; font-size: clamp(1.35rem,2vw,1.85rem); line-height: 1.15; }
+.event-partner-copy small { color: rgba(255,255,255,.42); }
+.event-partner-marquee { overflow: hidden; mask-image: linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent); }
+.event-partner-track { display: flex; gap: 14px; width: max-content; animation: event-partner-scroll 28s linear infinite; }
+.event-partner-marquee:hover .event-partner-track { animation-play-state: paused; }
+.event-partner-mark { display: flex; align-items: center; gap: 13px; min-width: 218px; padding: 15px 18px; border: 1px solid rgba(255,255,255,.1); border-radius: 10px; background: rgba(255,255,255,.055); transition: border-color .25s ease, background .25s ease; }
+.event-partner-mark:hover { border-color: rgba(84,229,207,.45); background: rgba(84,229,207,.08); }
+.event-partner-mark > strong { display: grid; place-items: center; width: 42px; height: 42px; color: #071e2d; background: #54e5cf; font-size: .75rem; transform: skew(-7deg); }
+.event-partner-mark span, .event-partner-mark b, .event-partner-mark small { display: block; }
+.event-partner-mark b { color: #fff; font-size: .82rem; letter-spacing: .08em; }
+.event-partner-mark small { margin-top: 2px; color: rgba(255,255,255,.45); font-size: .69rem; }
+
+.event-physio-cta { display: flex; align-items: center; justify-content: space-between; gap: 40px; margin-top: 22px; padding: clamp(28px,4vw,48px); border: 1px solid rgba(84,229,207,.25); border-radius: 18px; background: linear-gradient(100deg,rgba(84,229,207,.1),rgba(255,255,255,.025)); }
+.event-physio-cta h2 { max-width: 760px; margin-top: 8px; color: #fff; font-size: clamp(1.8rem,3.2vw,3.15rem); line-height: 1.05; letter-spacing: -.04em; }
+.event-physio-cta .MuiButton-root { flex: 0 0 auto; margin-top: 0; }
+
+.event-teaser { padding: clamp(74px,8vw,112px) 0; background: #f4f9fa; }
+.event-teaser-card { position: relative; display: grid; grid-template-columns: minmax(0,1.05fr) minmax(390px,.95fr); min-height: 470px; overflow: hidden; border-radius: 26px; color: #fff; background: linear-gradient(120deg,#071e2d,#0b3548); box-shadow: 0 34px 80px rgba(7,30,45,.16); }
+.event-teaser-card::after { position: absolute; width: 380px; height: 380px; right: -150px; bottom: -210px; border: 1px solid rgba(84,229,207,.2); border-radius: 50%; content: ""; }
+.event-teaser-copy { z-index: 1; padding: clamp(38px,6vw,78px); }
+.event-teaser-copy > span { display: inline-flex; align-items: center; gap: 8px; color: #54e5cf; font-size: .72rem; font-weight: 900; letter-spacing: .13em; text-transform: uppercase; }
+.event-teaser-copy h2 { max-width: 720px; margin: 19px 0 18px; color: #fff; font-size: clamp(2.45rem,4.7vw,4.8rem); font-weight: 800; line-height: .94; letter-spacing: -.055em; }
+.event-teaser-copy > .MuiTypography-root { max-width: 650px; color: rgba(255,255,255,.64); line-height: 1.72; }
+.event-teaser-copy .MuiButton-root { min-height: 52px; margin-top: 30px; padding-inline: 22px; color: #071e2d; background: #bafc48; font-weight: 900; }
+.event-teaser-copy .MuiButton-root:hover { color: #071e2d; background: #d0ff7c; }
+.event-teaser-visual { position: relative; min-height: 100%; background: radial-gradient(circle at 50% 50%,rgba(84,229,207,.14),transparent 57%); }
+.event-teaser-line { position: absolute; width: 2px; top: 12%; bottom: 12%; left: 48%; background: linear-gradient(transparent,#54e5cf,transparent); animation: event-line-pulse 3s ease-in-out infinite; }
+.event-teaser-badge { position: absolute; display: flex; align-items: center; gap: 13px; width: min(280px,76%); padding: 18px 20px; border: 1px solid rgba(255,255,255,.13); border-radius: 12px; background: rgba(255,255,255,.08); backdrop-filter: blur(13px); box-shadow: 0 20px 45px rgba(0,0,0,.18); animation: event-badge-float 5s ease-in-out infinite; }
+.event-teaser-badge > svg { color: #bafc48; }
+.event-teaser-badge span, .event-teaser-badge strong, .event-teaser-badge small { display: block; }
+.event-teaser-badge strong { color: #fff; }
+.event-teaser-badge small { margin-top: 2px; color: rgba(255,255,255,.48); }
+.event-teaser-badge-one { top: 13%; left: 4%; }
+.event-teaser-badge-two { top: 42%; right: 5%; animation-delay: -1.7s; }
+.event-teaser-badge-three { bottom: 12%; left: 10%; animation-delay: -3.1s; }
+
+@keyframes event-partner-scroll { to { transform: translateX(calc(-50% - 7px)); } }
+@keyframes event-sport-scroll { to { transform: translateX(calc(-50% - 17px)); } }
+@keyframes event-orbit-float { 50% { transform: translate3d(18px,22px,0) scale(1.03); } }
+@keyframes event-glow-drift { to { transform: translate3d(90px,50px,0) scale(1.2); } }
+@keyframes event-text-shine { to { background-position: 200% center; } }
+@keyframes event-icon-pulse { 50% { opacity: .55; transform: scale(.88); } }
+@keyframes event-line-pulse { 50% { opacity: .35; transform: scaleY(.78); } }
+@keyframes event-badge-float { 50% { transform: translateY(-12px); } }
+
+@media (max-width: 1120px) {
+  .event-physio-heading { grid-template-columns: 1fr; gap: 28px; }
+  .event-physio-intro { max-width: 760px; }
+  .event-physio-coverage { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .event-service-standard { grid-template-columns: auto 1fr; }
+  .event-service-standard__points { grid-column: 1/-1; }
+  .event-partner-panel { grid-template-columns: 1fr; gap: 25px; }
+  .event-teaser-card { grid-template-columns: 1fr .75fr; }
+}
+
+@media (max-width: 760px) {
+  .event-physio-section { padding: 72px 0; }
+  .event-physio-heading h1 { font-size: clamp(2.65rem,13vw,4.25rem); }
+  .event-physio-coverage { grid-template-columns: 1fr; }
+  .event-coverage-card { min-height: 235px; }
+  .event-coverage-card h2 { margin-top: 38px; }
+  .event-service-standard { grid-template-columns: 1fr; padding: 27px 22px; }
+  .event-service-standard__points { grid-template-columns: 1fr; }
+  .event-service-standard__points span { border-left: 0; border-top: 1px solid rgba(7,30,45,.16); }
+  .event-partner-panel { padding: 26px 0 26px 20px; }
+  .event-partner-copy { padding-right: 20px; }
+  .event-physio-cta { align-items: flex-start; flex-direction: column; }
+  .event-teaser-card { grid-template-columns: 1fr; }
+  .event-teaser-visual { min-height: 330px; }
+}
+
+@media (max-width: 480px) {
+  .event-physio-kicker { align-items: flex-start; line-height: 1.5; }
+  .event-teaser-copy { padding: 34px 24px; }
+  .event-teaser-copy h2 { font-size: 2.55rem; }
+  .event-teaser-badge { width: 86%; }
+  .event-teaser-badge-one { left: 2%; }
+  .event-teaser-badge-two { right: 2%; }
+  .event-teaser-badge-three { left: 6%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .event-partner-track, .event-sports-track, .event-physio-orbit, .event-physio-section::after, .event-physio-heading h1 em, .event-physio-kicker svg, .event-teaser-line, .event-teaser-badge { animation: none; }
+}

@@ -10,6 +10,10 @@
       "destination": "/index.html"
     },
     {
+      "source": "/event-coverage",
+      "destination": "/index.html"
+    },
+    {
       "source": "/admin",
       "destination": "/index.html"
     },

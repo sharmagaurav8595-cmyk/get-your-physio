@@ -3,6 +3,8 @@ export const contactDetails = {
   phoneHref: "tel:+919919387585",
   whatsappHref:
     "https://wa.me/919919387585?text=Hello%20GetYourPhysio.in%2C%20I%20want%20to%20book%20a%20Physiotherapy%20consultation.",
+  eventCoverageWhatsappHref:
+    "https://wa.me/919919387585?text=Hello%20GetYourPhysio.in%2C%20I%20want%20to%20discuss%20Physiotherapy%20coverage%20for%20a%20sports%20event.",
   appointmentEmail: "getyourphysio.in@gmail.com",
   publicEmail: "getyourphysio.in@gmail.com",
 };
