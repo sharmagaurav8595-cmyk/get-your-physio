@@ -110,7 +110,7 @@ export default function OnboardingPage() {
     let required = [];
     if (activeStep === 0) required = ["name", "age", "gender", "mobile", "email"];
     if (activeStep === 1) required = ["address", "city", "state", "pincode"];
-    if (activeStep === 2) required = ["qualification", "degree", "registrationNumber", "degreeFile"];
+    if (activeStep === 2) required = ["qualification", "degree", "degreeFile"];
     const missing = required.find((field) => !String(form[field] || "").trim());
     if (missing) {
       setError("Please complete all required details before continuing.");
@@ -237,7 +237,7 @@ export default function OnboardingPage() {
                 <MenuItem value="Other">Other recognised qualification</MenuItem>
               </FormField>
               <FormField name="degree" form={form} setForm={setForm} label="Degree / specialisation *" placeholder="For example: MPT - Sports" />
-              <FormField name="registrationNumber" form={form} setForm={setForm} label="Registration number *" />
+              <FormField name="registrationNumber" form={form} setForm={setForm} label="Registration number (optional)" />
               <Box component="label" className={`degree-upload field-wide ${form.degreeFile ? "has-file" : ""}`}>
                 <input
                   type="file"

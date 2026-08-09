@@ -18,7 +18,7 @@ export default function Hero() {
               className="hero-chip"
             />
             <Typography component="h1" variant="h1" className="hero-title">
-              Expert Physiotherapy for home, sport & events
+              Expert Physiotherapy for home, Sports & events
             </Typography>
             <Typography variant="h5" color="text.secondary" className="hero-subtitle">
               Personalised care at your doorstep, plus qualified on-site Physio teams for tournaments, leagues and endurance events.
@@ -66,7 +66,7 @@ export default function Hero() {
             <img src={images.hero} alt="Physiotherapist supporting a patient during treatment" />
             <Box component="a" href="/event-coverage" className="hero-stat hero-stat-event">
               <span className="hero-stat-eyebrow"><i /> Sports Event Partnerships</span>
-              <Typography variant="h4">Physio teams for your sporting event</Typography>
+              <Typography variant="h4">Physio teams for your Sports event</Typography>
               <Typography>Get Professional Physiotherapists & Recovery Support for your Events.</Typography>
               <strong>Explore Event Coverage <ArrowRight size={17} /></strong>
             </Box>
