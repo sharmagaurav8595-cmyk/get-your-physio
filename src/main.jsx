@@ -6,6 +6,7 @@ import { theme } from "./theme.js";
 import "./styles/global.css";
 import "./styles/animations.css";
 import "./styles/auth.css";
+import "./styles/event-physio.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

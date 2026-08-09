@@ -19,11 +19,12 @@ import logo3 from "../assets/logoNew.jpg";
 import { contactDetails } from "../data/contact.js";
 
 const navLinks = [
-  { label: "How It Works", href: "#how-it-works" },
-  { label: "Services", href: "#services" },
-  { label: "About", href: "#about" },
-  { label: "FAQ", href: "#faq" },
-  { label: "Contact", href: "#contact" },
+  { label: "How It Works", href: "/#how-it-works" },
+  { label: "Services", href: "/#services" },
+  { label: "About", href: "/#about" },
+  { label: "Event Coverage", href: "/event-coverage" },
+  { label: "FAQ", href: "/#faq" },
+  { label: "Contact", href: "/#contact" },
   // { label: "Athlete Gateway", href: "/athletes" },
 ];
 
@@ -36,7 +37,7 @@ export default function Header() {
     <AppBar position="sticky" color="inherit" elevation={0} className="site-header">
       <Container maxWidth="xl">
         <Toolbar disableGutters className="header-toolbar">
-          <Box component="a" href="#home" className="brand-link" aria-label="GetYourPhysio.in home">
+          <Box component="a" href="/#home" className="brand-link" aria-label="GetYourPhysio.in home">
             <Box className="brand-logo-frame">
               <img src={logo3} alt="" className="brand-logo" />
             </Box>

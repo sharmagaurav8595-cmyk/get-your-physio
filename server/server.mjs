@@ -398,7 +398,6 @@ app.post("/api/auth/register", degreeUpload.single("degreeFile"), async (req, re
       || !profile.pincode
       || !profile.qualification
       || !profile.degree
-      || !profile.registrationNumber
       || !req.file
     )) {
       throw apiError(400, "Complete all practice and qualification details and upload the degree PDF.");

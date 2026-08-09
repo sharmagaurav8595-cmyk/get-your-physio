@@ -5,6 +5,7 @@ import Hero from "./components/Hero.jsx";
 import ServicesSection from "./components/ServicesSection.jsx";
 import AboutSection from "./components/AboutSection.jsx";
 import WhyChooseUs from "./components/WhyChooseUs.jsx";
+import EventCoverageTeaser from "./components/EventCoverageTeaser.jsx";
 import HowItWorks from "./components/HowItWorks.jsx";
 import ConditionsSection from "./components/ConditionsSection.jsx";
 import TestimonialsSection from "./components/TestimonialsSection.jsx";
@@ -21,6 +22,7 @@ import OnboardingPage from "./pages/OnboardingPage.jsx";
 import DashboardPage from "./pages/DashboardPage.jsx";
 import AdminLoginPage from "./pages/AdminLoginPage.jsx";
 import AdminDashboardPage from "./pages/AdminDashboardPage.jsx";
+import EventCoveragePage from "./pages/EventCoveragePage.jsx";
 
 export default function App() {
   const [route, setRoute] = useState(() => window.location.pathname.replace(/\/+$/, "") || "/");
@@ -37,6 +39,7 @@ export default function App() {
   if (route === "/dashboard/patient") return <DashboardPage role="patient" />;
   if (route === "/admin/login") return <AdminLoginPage />;
   if (route === "/admin") return <AdminDashboardPage />;
+  if (route === "/event-coverage") return <EventCoveragePage />;
 
   return (
     <Box>
@@ -55,6 +58,7 @@ export default function App() {
         <ServicesSection />
         <AboutSection />
         <WhyChooseUs />
+        {/* <EventCoverageTeaser /> */}
         <ConditionsSection />
         <TestimonialsSection />
         <FaqSection />
