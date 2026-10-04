@@ -1,0 +1,158 @@
+.partnership-banner {
+  position: relative;
+  isolation: isolate;
+  min-height: 128px;
+  overflow: hidden;
+  border-block: 1px solid rgba(255, 255, 255, .12);
+  color: #fff;
+  background: radial-gradient(ellipse at 50% 100%, #0c2530, #061119 70%);
+}
+
+.partnership-banner__athlete {
+  position: absolute;
+  z-index: -1;
+  inset-block: 0;
+  width: clamp(190px, 24vw, 340px);
+  overflow: hidden;
+  opacity: .65;
+}
+
+.partnership-banner__athlete--left {
+  left: 0;
+  mask-image: linear-gradient(to right, #000 25%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, #000 25%, transparent 100%);
+}
+
+.partnership-banner__athlete--right {
+  right: 0;
+  mask-image: linear-gradient(to left, #000 25%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to left, #000 25%, transparent 100%);
+}
+
+.partnership-banner__athlete img {
+  position: absolute;
+  width: 150%;
+  max-width: none;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 17%;
+  filter: grayscale(1) brightness(.78) contrast(1.12);
+}
+
+.partnership-banner__athlete--right img {
+  right: 0;
+  object-position: center 25%;
+}
+
+.partnership-banner__content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(18px, 2.2vw, 34px);
+  min-height: inherit;
+  max-width: 1536px;
+  margin-inline: auto;
+  padding: 18px 24px;
+}
+
+.partnership-banner__label {
+  font-size: clamp(12px, 1.15vw, 16px);
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: .025em;
+  text-transform: uppercase;
+}
+
+.partnership-banner__event {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.partnership-banner__puma {
+  display: block;
+  width: clamp(34px, 3vw, 42px);
+  height: auto;
+  flex-shrink: 0;
+}
+
+.partnership-banner__hyrox {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(30px, 3vw, 42px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: .38em;
+  margin-right: -.38em;
+}
+
+.partnership-banner__divider {
+  flex: 0 0 1px;
+  height: 60px;
+  background: rgba(255, 255, 255, .45);
+}
+
+.partnership-banner__brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.partnership-banner__brand strong {
+  font-size: clamp(19px, 1.85vw, 26px);
+  font-weight: 750;
+  letter-spacing: -.035em;
+  white-space: nowrap;
+}
+
+.partnership-banner__logo {
+  position: relative;
+  flex: 0 0 54px;
+  width: 54px;
+  aspect-ratio: 346 / 390;
+  overflow: hidden;
+}
+
+.partnership-banner__logo img {
+  position: absolute;
+  top: -129.7%;
+  left: -80.9%;
+  width: 260%;
+  max-width: none;
+  height: auto;
+  mix-blend-mode: screen;
+}
+
+@media (max-width: 900px) {
+  .partnership-banner__content { padding-top: 46px; padding-bottom: 14px; gap: 24px; }
+  .partnership-banner__label { position: absolute; top: 17px; font-size: 12px; letter-spacing: .06em; }
+  .partnership-banner__hyrox { font-size: 32px; }
+  .partnership-banner__puma { width: 34px; }
+  .partnership-banner__divider { height: 48px; }
+  .partnership-banner__logo { flex-basis: 44px; width: 44px; }
+  .partnership-banner__brand strong { font-size: 21px; }
+  .partnership-banner__athlete { width: 190px; opacity: .45; }
+}
+
+@media (max-width: 640px) {
+  .partnership-banner { min-height: 116px; }
+  .partnership-banner__content { padding: 44px 16px 14px; gap: 12px; }
+  .partnership-banner__label { top: 16px; max-width: calc(100% - 32px); font-size: 10px; text-align: center; }
+  .partnership-banner__hyrox { font-size: clamp(22px, 6.3vw, 28px); letter-spacing: .24em; margin-right: -.24em; }
+  .partnership-banner__event { gap: 8px; }
+  .partnership-banner__puma { width: 24px; }
+  .partnership-banner__divider { height: 38px; }
+  .partnership-banner__brand { gap: 7px; }
+  .partnership-banner__brand strong { font-size: clamp(12px, 3.7vw, 16px); }
+  .partnership-banner__logo { flex-basis: 36px; width: 36px; }
+  .partnership-banner__athlete { width: 130px; opacity: .35; }
+}
+
+@media (max-width: 380px) {
+  .partnership-banner__content { padding-inline: 12px; gap: 8px; }
+  .partnership-banner__hyrox { font-size: 20px; }
+  .partnership-banner__puma { width: 22px; }
+  .partnership-banner__logo { flex-basis: 30px; width: 30px; }
+}

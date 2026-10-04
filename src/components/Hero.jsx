@@ -1,6 +1,6 @@
 import { Box, Button, Chip, Container, Stack, Typography } from "@mui/material";
-import { ArrowRight, CalendarCheck, CheckCircle2, Flag, Phone, ShieldCheck } from "lucide-react";
-import { images } from "../assets/images.js";
+import { CalendarCheck, CheckCircle2, Flag, Phone, ShieldCheck } from "lucide-react";
+import HeroImageSlider from "./HeroImageSlider.jsx";
 import { contactDetails } from "../data/contact.js";
 
 const highlights = ["Personalized home care", "On-site event teams", "Flexible coverage planning"];
@@ -18,10 +18,13 @@ export default function Hero() {
               className="hero-chip"
             />
             <Typography component="h1" variant="h1" className="hero-title">
-              Expert Physiotherapy for home, Sports & events
+              <span>Expert </span>
+              <span>Physiotherapy </span>
+              <span>for Home, Athletes </span>
+              <span>&amp; Events</span>
             </Typography>
             <Typography variant="h5" color="text.secondary" className="hero-subtitle">
-              Personalised care at your doorstep, plus qualified on-site Physio teams for tournaments, leagues and endurance events.
+              Professional Physiotherapy at your doorstep to relieve pain, restore movement, and recover faster.
             </Typography>
             <Stack direction={{ xs: "column", sm: "row" }} spacing={1.5} className="hero-actions">
               <Button
@@ -31,25 +34,25 @@ export default function Hero() {
                 size="large"
                 startIcon={<CalendarCheck size={20} />}
               >
-                Book Home Physio
+               Book Appointment 
               </Button>
-              <Button
+              {/* <Button
                 component="a"
                 href="/event-coverage"
                 variant="outlined"
                 size="large"
                 startIcon={<Flag size={20} />}
               >
-                Event Coverage
-              </Button>
+               Event Coverage
+              </Button> */}
               <Button
                 component="a"
                 href={contactDetails.phoneHref}
-                variant="text"
+                variant="outlined"
                 size="large"
                 startIcon={<Phone size={20} />}
               >
-                Call Now
+                  Call Now
               </Button>
             </Stack>
             <Stack direction={{ xs: "column", sm: "row" }} spacing={1.5} className="hero-highlights">
@@ -63,13 +66,10 @@ export default function Hero() {
           </Box>
 
           <Box className="hero-media">
-            <img src={images.hero} alt="Physiotherapist supporting a patient during treatment" />
-            <Box component="a" href="/event-coverage" className="hero-stat hero-stat-event">
-              <span className="hero-stat-eyebrow"><i /> Sports Event Partnerships</span>
-              <Typography variant="h4">Physio teams for your Sports event</Typography>
-              <Typography>Get Professional Physiotherapists & Recovery Support for your Events.</Typography>
-              <strong>Explore Event Coverage <ArrowRight size={17} /></strong>
-            </Box>
+            <HeroImageSlider />
+            <Typography component="p" className="hero-photo-caption">
+              HYROX Mumbai | Physiotherapy Partner
+            </Typography>
           </Box>
         </Box>
       </Container>

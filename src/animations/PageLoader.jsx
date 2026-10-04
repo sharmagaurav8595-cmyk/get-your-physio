@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import blackLogo from "../assets/black logo.jpeg";
+import pumaLogo from "../assets/puma-cat.svg";
 
 const MINIMUM_DISPLAY_MS = 900;
 
@@ -31,11 +33,16 @@ export default function PageLoader() {
   return (
     <div className={`gy-loader${leaving ? " gy-loader--leaving" : ""}`} role="status" aria-live="polite">
       <div className="gy-loader__mark" aria-hidden="true">
-        <span />
-        <span />
+        <img src={blackLogo} alt="" fetchPriority="high" />
       </div>
       <div className="gy-loader__brand">GetYourPhysio.in</div>
       <div className="gy-loader__tagline">Healing at your doorstep</div>
+      <div className="gy-loader__partners">
+        <span className="gy-loader__trusted">Trusted by</span>
+        <strong className="gy-loader__hyrox">HYROX</strong>
+        <span className="gy-loader__divider" aria-hidden="true" />
+        <img className="gy-loader__puma" src={pumaLogo} alt="PUMA" />
+      </div>
       <div className="gy-loader__track" aria-hidden="true">
         <span />
       </div>
