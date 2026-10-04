@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import Header from "./components/Header.jsx";
+import PartnershipBanner from "./components/PartnershipBanner.jsx";
 import Hero from "./components/Hero.jsx";
 import ServicesSection from "./components/ServicesSection.jsx";
 import AboutSection from "./components/AboutSection.jsx";
@@ -52,6 +53,7 @@ export default function App() {
       <>
       <Header />
       <main>
+        <PartnershipBanner />
           {/* <AthletePage /> */}
         <Hero />
         <HowItWorks />

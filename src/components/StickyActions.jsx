@@ -1,5 +1,6 @@
 import { Box, Button } from "@mui/material";
-import { MessageCircle, Phone } from "lucide-react";
+import { Phone } from "lucide-react";
+import whatsappLogo from "../assets/whatsapp.svg";
 import { contactDetails } from "../data/contact.js";
 
 export default function StickyActions() {
@@ -10,18 +11,21 @@ export default function StickyActions() {
         href={contactDetails.whatsappHref}
         variant="contained"
         color="secondary"
-        startIcon={<MessageCircle size={19} />}
+        className="sticky-actions__whatsapp"
+        aria-label="Chat on WhatsApp"
+        title="Chat on WhatsApp"
       >
-        WhatsApp
+        <img src={whatsappLogo} width="26" height="26" alt="" aria-hidden="true" />
       </Button>
       <Button
         component="a"
         href={contactDetails.phoneHref}
         variant="contained"
         color="primary"
-        startIcon={<Phone size={19} />}
+        aria-label="Call GetYourPhysio"
+        title="Call GetYourPhysio"
       >
-        Call
+        <Phone size={24} aria-hidden="true" />
       </Button>
     </Box>
   );

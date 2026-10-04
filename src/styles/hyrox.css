@@ -1,0 +1,180 @@
+.hyrox-hero {
+  --hyrox-lime: #d5f36b;
+  position: relative;
+  padding: 64px 0 0;
+  overflow: hidden;
+  color: #fff;
+  background: radial-gradient(ellipse at 85% 30%, #163e43 0%, transparent 52%), #0b222d;
+}
+
+.hyrox-hero__grid { display: grid; grid-template-columns: 1.04fr 1fr; align-items: center; gap: clamp(32px, 4vw, 66px); }
+.hyrox-hero__copy { min-width: 0; padding-block: 14px; }
+.hyrox-eyebrow { display: flex; align-items: center; gap: 9px; margin-bottom: 26px; color: #ccdcde; font-size: .72rem; font-weight: 650; letter-spacing: .13em; text-transform: uppercase; }
+.hyrox-eyebrow > span { width: 7px; height: 7px; flex: 0 0 auto; border-radius: 50%; background: var(--hyrox-lime); box-shadow: 0 0 0 4px #d5f36b12; }
+.hyrox-hero__copy h1 { margin: 0; color: #fff; font-size: clamp(2.9rem, 4.8vw, 4.7rem); font-weight: 800; letter-spacing: -.055em; line-height: 1.04; }
+.hyrox-hero__copy h1 em { color: var(--hyrox-lime); font-style: normal; }
+.hyrox-hero__intro { max-width: 500px; margin-top: 25px !important; color: #bdcdd1; font-size: 1.05rem !important; line-height: 1.8 !important; }
+.hyrox-hero__home-services { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.hyrox-hero__home-services > span { padding: 6px 10px; border: 1px solid #ffffff24; border-radius: 5px; color: #deebe7; background: #ffffff06; font-size: .72rem; }
+.hyrox-hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.hyrox-hero__actions .MuiButton-root { min-height: 52px; padding-inline: 21px; font-size: .91rem; }
+.hyrox-hero__actions .MuiButton-contained { color: #14292c; background: var(--hyrox-lime); box-shadow: none; }
+.hyrox-hero__actions .MuiButton-contained:hover { background: #e2ff83; box-shadow: 0 8px 24px #0002; }
+.hyrox-hero__actions .MuiButton-outlined { border-color: #ffffff40; color: #fff; }
+.hyrox-hero__actions .MuiButton-outlined:hover { border-color: var(--hyrox-lime); background: #ffffff08; }
+.hyrox-hero__story-link { display: inline-flex; align-items: center; gap: 9px; margin-top: 22px; padding-block: 5px; color: #ccdcde; font-size: .85rem; }
+.hyrox-hero__story-link:hover { color: var(--hyrox-lime); }
+.hyrox-hero__partnership { display: flex; align-items: center; gap: 20px; margin-top: 33px; padding-top: 24px; border-top: 1px solid #ffffff21; }
+.hyrox-wordmark { font-family: Arial, Helvetica, sans-serif; font-size: 2rem; font-weight: 900; letter-spacing: -.06em; line-height: 1; }
+.hyrox-hero__partner-divider { width: 1px; align-self: stretch; background: #ffffff30; }
+.hyrox-hero__partnership > span:last-child { display: flex; align-items: flex-start; gap: 9px; color: #e3efec; font-size: .85rem; font-weight: 650; }
+.hyrox-hero__partnership svg { flex: 0 0 auto; color: var(--hyrox-lime); }
+.hyrox-hero__partnership small { display: block; margin-top: 5px; color: #94afb8; font-size: .7rem; font-weight: 400; }
+.hyrox-hero__mosaic { position: relative; display: grid; grid-template-columns: 1fr; grid-template-rows: minmax(0, 1fr) 128px; gap: 12px; height: 516px; padding-bottom: 24px; }
+.hyrox-hero__mosaic figure { position: relative; min-width: 0; margin: 0; overflow: hidden; border: 1px solid #ffffff15; border-radius: 12px; background: #152e37; }
+.hyrox-hero__mosaic img { width: 100%; height: 100%; object-fit: cover; }
+.hyrox-hero__main-photo img { object-position: center; }
+.hyrox-hero__mosaic figcaption { position: absolute; inset: auto 0 0; padding: 60px 20px 22px; color: #fff; background: linear-gradient(transparent, #041519e6); }
+.hyrox-photo-label { display: block; margin-bottom: 9px; color: var(--hyrox-lime); font-size: .58rem; font-weight: 700; letter-spacing: .16em; }
+.hyrox-hero__main-photo strong { font-size: 1.08rem; font-weight: 700; line-height: 1.4; }
+.hyrox-hero__side-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; min-height: 0; }
+.hyrox-hero__team-photo img { object-position: center 55%; }
+.hyrox-hero__care-photo img { object-position: center 58%; }
+.hyrox-hero__side-photos figcaption { padding: 36px 12px 14px; font-size: .68rem; font-weight: 650; }
+.hyrox-hero__care-photo figcaption { display: flex; align-items: center; gap: 7px; }
+.hyrox-hero__care-photo svg { color: var(--hyrox-lime); flex: 0 0 auto; }
+.hyrox-hero__photo-note { position: absolute; right: 0; bottom: 0; color: #8ba7ad; font-size: .57rem; font-weight: 650; letter-spacing: .18em; }
+.hyrox-hero__care-points { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 46px; padding-block: 25px 29px; border-top: 1px solid #ffffff21; }
+.hyrox-hero__care-points > div { display: flex; align-items: center; justify-content: center; gap: 14px; }
+.hyrox-hero__care-points > div + div { border-left: 1px solid #ffffff21; }
+.hyrox-hero__care-points svg { color: var(--hyrox-lime); flex: 0 0 auto; }
+.hyrox-hero__care-points strong, .hyrox-hero__care-points small { display: block; }
+.hyrox-hero__care-points strong { margin-bottom: 3px; font-size: .9rem; font-weight: 650; }
+.hyrox-hero__care-points small { color: #96adb5; font-size: .75rem; }
+
+#hyrox, #home { scroll-margin-top: 100px; }
+.hyrox-story { padding: 76px 0; background: #fff; }
+.hyrox-story__heading { display: grid; grid-template-columns: 1.2fr 1fr; align-items: end; gap: 50px; }
+.hyrox-story__eyebrow { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 18px; color: #087568; font-size: .71rem; font-weight: 750; letter-spacing: .1em; text-transform: uppercase; }
+.hyrox-story__heading h2 { color: #14324a; font-size: clamp(2.1rem, 3.6vw, 3.5rem); font-weight: 750; letter-spacing: -.045em; line-height: 1.14; }
+.hyrox-story__heading h2 span { color: #087568; }
+.hyrox-story__intro > p { max-width: 480px; color: #52697a; font-size: .96rem; line-height: 1.8; }
+.hyrox-story__intro > span { display: block; margin-top: 14px; color: #14324a; font-size: .77rem; font-weight: 650; }
+.hyrox-gallery__toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 34px; margin-bottom: 16px; }
+.hyrox-gallery__toolbar > span { color: #52697a; font-size: .66rem; font-weight: 700; letter-spacing: .14em; }
+.hyrox-gallery__toolbar small { margin-left: 12px; color: #788e9c; font-size: .67rem; font-weight: 400; letter-spacing: 0; }
+.hyrox-gallery__controls { display: flex; gap: 8px; }
+.hyrox-gallery__controls .MuiIconButton-root { width: 42px; height: 42px; border: 1px solid #dce5e8; color: #14324a; background: #fff; }
+.hyrox-gallery__controls .MuiIconButton-root:hover { border-color: #087568; background: #edf7f2; }
+.hyrox-gallery__controls .MuiIconButton-root.Mui-disabled { color: #a6b5bd; background: #f8fafb; }
+.hyrox-gallery { position: relative; display: flex; align-items: stretch; gap: 18px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: thin; scrollbar-color: #bdcfcc #f2f5f5; padding-bottom: 15px; }
+.hyrox-gallery:focus-visible { outline: 2px solid #087568; outline-offset: 5px; }
+.hyrox-gallery__card { flex: 0 0 248px; min-width: 0; margin: 0; scroll-snap-align: start; }
+.hyrox-gallery__card--landscape { flex-basis: 450px; }
+.hyrox-gallery__image { position: relative; height: 322px; overflow: hidden; border-radius: 10px; background: #0b222d; }
+.hyrox-gallery__image img { width: 100%; height: 100%; object-fit: cover; transition: transform 350ms ease; }
+.hyrox-gallery__card--landscape img { object-fit: contain; }
+@media (hover: hover) { .hyrox-gallery__card:hover img { transform: scale(1.025); } }
+.hyrox-gallery__image > span { position: absolute; top: 12px; left: 12px; display: grid; place-items: center; width: 30px; height: 30px; border: 1px solid #ffffff55; border-radius: 50%; color: #fff; background: #0b222d85; font-size: .68rem; }
+.hyrox-gallery__card figcaption { padding: 16px 2px 0; }
+.hyrox-gallery__card figcaption > span { display: block; margin-bottom: 6px; color: #087568; font-size: .63rem; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; }
+.hyrox-gallery__card figcaption strong { display: block; color: #14324a; font-size: .9rem; font-weight: 650; line-height: 1.5; }
+.hyrox-gallery__footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 12px; color: #6d8493; font-size: .7rem; }
+.hyrox-story__cta { display: flex; align-items: center; justify-content: space-between; gap: 26px; margin-top: 34px; padding: 26px 30px; border: 1px solid #dce9e3; border-radius: 10px; background: #f2f8f4; }
+.hyrox-story__cta > div > span { color: #087568; font-size: .61rem; font-weight: 750; letter-spacing: .13em; }
+.hyrox-story__cta h3 { margin-top: 7px; color: #14324a; font-size: clamp(1.15rem, 1.7vw, 1.5rem); font-weight: 650; letter-spacing: -.025em; }
+.hyrox-story__cta .MuiButton-root { flex-shrink: 0; padding-inline: 20px; color: #fff; background: #0b4b43; }
+.hyrox-story__cta .MuiButton-root:hover { background: #087568; }
+
+.hyrox-event-partner { display: grid; grid-template-columns: 1fr 1.1fr; align-items: center; gap: 32px; margin-top: 22px; padding: 30px; border: 1px solid #ffffff26; border-radius: 18px; background: #ffffff08; }
+.hyrox-event-partner__copy > span { color: #bafc48; font-size: .7rem; font-weight: 750; letter-spacing: .13em; text-transform: uppercase; }
+.hyrox-event-partner__copy h2 { margin-top: 12px; color: #fff; font-size: clamp(1.6rem, 2.5vw, 2.3rem); font-weight: 750; letter-spacing: -.035em; line-height: 1.15; }
+.hyrox-event-partner__copy p { margin-top: 12px; color: #bfd1d7; font-size: .91rem; line-height: 1.75; }
+.hyrox-event-partner__copy > a { display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; color: #bafc48; font-size: .88rem; font-weight: 650; }
+.hyrox-event-partner > img { width: 100%; height: auto; border-radius: 10px; }
+
+@media (max-width: 1280px) {
+  .site-header .brand-name { font-size: 1.65rem !important; }
+  .header-toolbar { gap: 16px; }
+  .desktop-nav .MuiButton-root { padding-inline: 7px; min-width: auto; font-size: .8rem; }
+  .desktop-actions .MuiButton-root { padding-inline: 10px; font-size: .8rem; }
+}
+@media (max-width: 1200px) {
+  .desktop-nav, .desktop-actions { display: none !important; }
+  .mobile-menu-button { display: inline-flex !important; margin-left: auto !important; }
+  .mobile-drawer { display: block !important; }
+}
+@media (max-width: 1080px) {
+  .hyrox-hero { padding-top: 48px; }
+  .hyrox-hero__grid { gap: 30px; }
+  .hyrox-hero__copy h1 { font-size: clamp(2.5rem, 4.7vw, 3.3rem); }
+  .hyrox-hero__mosaic { height: 490px; gap: 9px; }
+  .hyrox-hero__intro { font-size: .94rem !important; }
+  .hyrox-hero__partnership { gap: 13px; }
+  .hyrox-hero__partnership > span:last-child { font-size: .76rem; }
+  .hyrox-hero__main-photo strong { font-size: .92rem; }
+  .hyrox-hero__care-points { gap: 18px; }
+  .hyrox-hero__care-points small { font-size: .67rem; }
+}
+@media (max-width: 800px) {
+  .hyrox-hero__grid { grid-template-columns: 1fr; gap: 36px; }
+  .hyrox-hero__copy { padding-block: 0; }
+  .hyrox-hero__copy h1 { font-size: clamp(2.8rem, 7.4vw, 4.2rem); }
+  .hyrox-hero__intro { max-width: 590px; font-size: 1rem !important; }
+  .hyrox-hero__mosaic { height: 480px; }
+  .hyrox-hero__main-photo strong { font-size: 1.2rem; }
+  .hyrox-hero__side-photos figcaption { font-size: .8rem; }
+  .hyrox-hero__care-points { margin-top: 25px; }
+  .hyrox-story { padding-block: 54px; }
+  .hyrox-story__heading { grid-template-columns: 1fr; gap: 22px; }
+  .hyrox-story__intro > p { max-width: 620px; }
+  .hyrox-story__cta { align-items: flex-start; flex-direction: column; gap: 20px; }
+  .hyrox-event-partner { grid-template-columns: 1fr; gap: 24px; }
+}
+@media (max-width: 540px) {
+  .hyrox-hero { padding-top: 32px; }
+  .hyrox-eyebrow { margin-bottom: 20px; font-size: .59rem; letter-spacing: .1em; }
+  .hyrox-hero__copy h1 { font-size: clamp(2.05rem, 8.9vw, 3rem); }
+  .hyrox-hero__intro { margin-top: 19px !important; font-size: .92rem !important; line-height: 1.75 !important; }
+  .hyrox-hero__actions { gap: 9px; margin-top: 23px; }
+  .hyrox-hero__actions .MuiButton-root { flex: 1 1 145px; min-height: 48px; padding-inline: 11px; font-size: .77rem; }
+  .hyrox-hero__story-link { margin-top: 14px; font-size: .77rem; }
+  .hyrox-hero__partnership { gap: 13px; margin-top: 24px; padding-top: 20px; }
+  .hyrox-wordmark { font-size: 1.75rem; }
+  .hyrox-hero__partnership > span:last-child { gap: 6px; font-size: .7rem; }
+  .hyrox-hero__partnership small { font-size: .59rem; }
+  .hyrox-hero__mosaic { height: 365px; grid-template-rows: minmax(0, 1fr) 100px; gap: 8px; }
+  .hyrox-hero__side-photos { gap: 8px; }
+  .hyrox-hero__mosaic figcaption { padding: 40px 12px 15px; }
+  .hyrox-photo-label { font-size: .46rem; letter-spacing: .1em; }
+  .hyrox-hero__main-photo strong { font-size: .88rem; }
+  .hyrox-hero__side-photos figcaption { padding: 27px 8px 10px; font-size: .57rem; }
+  .hyrox-hero__care-photo figcaption { gap: 4px; }
+  .hyrox-hero__care-photo svg { width: 13px; }
+  .hyrox-hero__photo-note { font-size: .49rem; }
+  .hyrox-hero__care-points { grid-template-columns: 1fr; gap: 18px; padding-block: 23px; }
+  .hyrox-hero__care-points > div { justify-content: flex-start; }
+  .hyrox-hero__care-points > div + div { border: 0; }
+  .hyrox-hero__care-points strong { font-size: .82rem; }
+  .hyrox-hero__care-points small { font-size: .72rem; }
+  .hyrox-story__eyebrow { font-size: .63rem; }
+  .hyrox-story__heading h2 { font-size: clamp(1.9rem, 7.5vw, 2.5rem); }
+  .hyrox-story__intro > p { font-size: .9rem; }
+  .hyrox-gallery__toolbar { margin-top: 25px; }
+  .hyrox-gallery__toolbar > span { font-size: .56rem; letter-spacing: .09em; }
+  .hyrox-gallery__toolbar small { display: block; margin-left: 0; margin-top: 4px; font-size: .6rem; }
+  .hyrox-gallery { gap: 12px; }
+  .hyrox-gallery__card { flex-basis: 216px; }
+  .hyrox-gallery__card--landscape { flex-basis: min(310px, 88%); }
+  .hyrox-gallery__image { height: 285px; }
+  .hyrox-gallery__card--landscape .hyrox-gallery__image { background: #102e37; }
+  .hyrox-gallery__card figcaption strong { font-size: .81rem; }
+  .hyrox-gallery__footer { font-size: .62rem; }
+  .hyrox-story__cta { padding: 22px; }
+  .hyrox-story__cta .MuiButton-root { width: 100%; font-size: .81rem; }
+  .hyrox-event-partner { padding: 23px; }
+  #hyrox, #home { scroll-margin-top: 80px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hyrox-gallery__image img { transition: none; }
+}
